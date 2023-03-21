@@ -5,7 +5,8 @@ import type { RootState, AppDispatch } from './store';
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-// handle guest status
-export const useGuest = () => {
-    
+// check guest status
+export const useGuestStatus = () => {
+    // localStorage will return null if key not found so no checks are needed
+    return localStorage.getItem('guest');
 }
