@@ -3,9 +3,16 @@
 
     guest sign in can be a function that sets an item in local storage to reflect guest status 
 */
+import { redirect } from "react-router-dom";
 
 export const LogIn = () => {
-
+    const guestSignIn = () => {
+        const storage = localStorage;
+        storage.getItem('guest') ? redirect('/') 
+        :
+        storage.setItem('guest', 'true');
+        redirect('/');
+    }
     return (
         <div>
             <div>
@@ -24,6 +31,7 @@ export const LogIn = () => {
                 </form>
                 <hr/>
                 <h2>Sign In as Guest</h2>
+                <button type="button" onClick={guestSignIn}>Guest Sign In</button>
             </div>
         </div>
     )
