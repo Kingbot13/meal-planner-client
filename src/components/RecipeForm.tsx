@@ -17,17 +17,6 @@ export const RecipeForm = () => {
             </form>
             <p>Ingredients</p>
             <form id="ingredients-form">
-                <div>
-                    <input type='text' name="ingredient0" id="ingredient0" />
-                    <input type='text' name="ingredientMeasurement0" id="ingredientMeasurement0" placeholder="1 1/2" />
-                    <select name="ingredientMeasurementType0" id="ingredientMeasurementType0">
-                        <option value='cup(s)'>Cup(s)</option>
-                        <option value='Oz(s)'>Oz</option>
-                        <option value='tablespoon(s)'>Tablespoon(s)</option>
-                        <option value='teaspoon(s)'>Teaspoon(s)</option>
-                    </select>
-                    <button type="button">X</button>
-                </div>
             </form>
             <hr/>
             <p>Steps</p>
