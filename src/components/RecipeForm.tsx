@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { IngredientInputs } from "./IngredientInputs";
 
 /* 
     create dynamically added form fields (ingredients and cooking instructions)
-    ingredient name, measurement and measurement type
     allow option to remove fields
 
 */
 
 export const RecipeForm = () => {
+    const [ingredientValues, setIngredientValues] = useState([{name: "", measurement: ""}]);
     return (
         <div>
             <h2>New Recipe</h2>
@@ -17,6 +18,10 @@ export const RecipeForm = () => {
             </form>
             <p>Ingredients</p>
             <form id="ingredients-form">
+                {ingredientValues.map((item, index) => {
+                   return <IngredientInputs key={index} number={index} value={item} />
+
+                })}
             </form>
             <hr/>
             <p>Steps</p>

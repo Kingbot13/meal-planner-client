@@ -1,10 +1,10 @@
 
 
-export const IngredientInputs = (number: any) => {
+export const IngredientInputs = (number: any, value: object, onChange: Function) => {
     return (
         <div>
-        <input type='text' name={`ingredient${number}`} id={`ingredient${number}`} />
-        <input type='text' name={`ingredientMeasurement${number}`} id={`ingredientMeasurement${number}`} placeholder="1 1/2" />
+        <input type='text' name={`ingredient${number}`} id={`ingredient${number}`} value={value.name} />
+        <input type='text' name={`ingredientMeasurement${number}`} id={`ingredientMeasurement${number}`} placeholder="1 1/2" value={value.measurement} />
         <select name={`ingredientMeasurementType${number}`} id={`ingredientMeasurementType${number}`}>
             <option value='cup(s)'>Cup(s)</option>
             <option value='Oz(s)'>Oz</option>
