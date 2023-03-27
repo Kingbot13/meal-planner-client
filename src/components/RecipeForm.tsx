@@ -9,6 +9,21 @@ import { IngredientInputs } from "./IngredientInputs";
 
 export const RecipeForm = () => {
     const [ingredientValues, setIngredientValues] = useState([{name: "", measurement: ""}]);
+
+    const handleIngredientChange = (i: number, e: any) => {
+        let valuesCopy = [...ingredientValues];
+        valuesCopy[i][e.target.name] = e.target.value;
+        setIngredientValues(valuesCopy);
+    };
+    const addIngredientFields = () => {
+        setIngredientValues([...ingredientValues, {name: "", measurement: ""}]);
+    };
+
+    const removeIngredientFields = (i) => {
+        const valuesCopy = [...ingredientValues];
+        valuesCopy.splice(i, 1);
+        setIngredientValues(valuesCopy);
+    }
     return (
         <div>
             <h2>New Recipe</h2>
@@ -19,7 +34,7 @@ export const RecipeForm = () => {
             <p>Ingredients</p>
             <form id="ingredients-form">
                 {ingredientValues.map((item, index) => {
-                   return <IngredientInputs key={index} number={index} value={item} />
+                   return <IngredientInputs key={index} number={index} value={item} onChange={handleIngredientChange} removeField={removeIngredientFields} />
 
                 })}
             </form>
