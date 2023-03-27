@@ -9,20 +9,37 @@ import { IngredientInputs } from "./IngredientInputs";
 
 export const RecipeForm = () => {
     const [ingredientValues, setIngredientValues] = useState([{name: "", measurement: ""}]);
+    const [recipeValues, setRecipeValues] = useState([{value: ""}]);
 
     const handleIngredientChange = (i: number, e: any) => {
         let valuesCopy = [...ingredientValues];
         valuesCopy[i][e.target.name] = e.target.value;
         setIngredientValues(valuesCopy);
     };
+
+    const handleRecipeChange = (i: number, e: any) => {
+        let valuesCopy = [...recipeValues];
+        valuesCopy[i][e.target.name] = e.target.value;
+        setRecipeValues(valuesCopy);
+    }
     const addIngredientFields = () => {
         setIngredientValues([...ingredientValues, {name: "", measurement: ""}]);
     };
+
+    const addRecipeFields = () => {
+        setRecipeValues([...recipeValues, {value:""}]);
+    }
 
     const removeIngredientFields = (i) => {
         const valuesCopy = [...ingredientValues];
         valuesCopy.splice(i, 1);
         setIngredientValues(valuesCopy);
+    }
+
+    const removeRecipeFields = (i) => {
+        const valuesCopy = [...recipeValues];
+        valuesCopy.splice(i, 1);
+        setRecipeValues(valuesCopy);
     }
     return (
         <div>
