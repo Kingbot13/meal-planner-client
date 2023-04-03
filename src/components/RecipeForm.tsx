@@ -25,13 +25,13 @@ export const RecipeForm = () => {
         setRecipeValues([...recipeValues, {value:""}]);
     }
 
-    const removeIngredientFields = (i) => {
+    const removeIngredientFields = (i: number) => {
         const valuesCopy = [...ingredientValues];
         valuesCopy.splice(i, 1);
         setIngredientValues(valuesCopy);
     }
 
-    const removeRecipeFields = (i) => {
+    const removeRecipeFields = (i: number) => {
         const valuesCopy = [...recipeValues];
         valuesCopy.splice(i, 1);
         setRecipeValues(valuesCopy);
