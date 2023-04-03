@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { IngredientInputs } from "./IngredientInputs";
-
-/* 
-    create dynamically added form fields (ingredients and cooking instructions)
-    allow option to remove fields
-
-*/
+import { RecipeInputs } from "./RecipeInputs";
 
 export const RecipeForm = () => {
     const [ingredientValues, setIngredientValues] = useState([{name: "", measurement: ""}]);
@@ -51,14 +46,16 @@ export const RecipeForm = () => {
             <p>Ingredients</p>
             <form id="ingredients-form">
                 {ingredientValues.map((item, index) => {
-                   return <IngredientInputs key={index} number={index} value={item} onChange={handleIngredientChange} removeField={removeIngredientFields} />
+                   return <IngredientInputs key={index} number={index} value={item} onChange={handleIngredientChange} removeField={removeIngredientFields} addField={addIngredientFields} />
 
                 })}
             </form>
             <hr/>
             <p>Steps</p>
             <form id="steps-form">
-
+                {recipeValues.map((item, index) => {
+                    return <RecipeInputs key={index} number={index} value={item} onChange={handleRecipeChange} removeField={removeRecipeFields} addField={addRecipeFields} />
+                })}
             </form>
         </div>
     )

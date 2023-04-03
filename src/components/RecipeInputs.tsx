@@ -1,11 +1,12 @@
 
 
-export const RecipeInputs = (onChange: Function, value: any) => {
+export const RecipeInputs = (onChange: Function, value: any, number: any, removeFields: Function, addField: Function) => {
 
     return (
         <div>
-            <input type="text" />
-            <button type="button">X</button>
+            <input type="text" onChange={(e) => onChange(number, e)} value={value} />
+            <button type="button" onClick={()=> removeFields(number)}>X</button>
+            <button type="button" onClick={() => addField()} >Add Step</button>
         </div>
     )
 }
