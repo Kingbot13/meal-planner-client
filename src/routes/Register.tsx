@@ -1,11 +1,6 @@
-/* 
-    rtk query will be used to handle form data
-*/
 import { redirect } from "react-router-dom";
-import { useLogInMutation } from "../features/api/apiSlice";
-import { useState } from "react";
 
-export const LogIn = () => {
+export const Register = () => {
     const guestSignIn = () => {
         const storage = localStorage;
         storage.getItem('guest') ? redirect('/') 
@@ -13,10 +8,6 @@ export const LogIn = () => {
         storage.setItem('guest', 'true');
         redirect('/');
     }
-    const [userData, setUserData] = useState({
-        username: '',
-        password: ''
-    });
     return (
         <div>
             <div>
