@@ -8,6 +8,7 @@ import { LogIn } from './routes/LogIn';
 import ErrorPage from './ErrorPage';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { Register } from './routes/Register';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LogIn />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/register",
+    element: <Register />,
     errorElement: <ErrorPage />
   }
 ]);
