@@ -17,21 +17,38 @@ export const LogIn = () => {
         username: '',
         password: ''
     });
+
+    const handleChange = (e: any) => {
+        const userDataCopy = {...userData};
+        userDataCopy[e.target.name] = e.target.value;
+        setUserData(userDataCopy);
+    }
+
+    const canSubmit = [userData.password, userData.username].every(Boolean);
+
+    [logIn, {data}] = useLogInMutation();
+
+    const handleSubmit = async () => {
+        if (canSubmit) {
+            try {
+                await logIn(userData).unwrap();
+                setUserData({username: '', password: ''});
+                localStorage.setItem('token', data.token);
+            } catch(err) {
+                console.error("failed to log in user", err);
+            }
+        }
+    }
     return (
         <div>
             <div>
                 <h1>Register or Log In</h1>
                 <form>
                     <label htmlFor="username">Email:</label>
-                    <input type='text' name="username" id="username"></input>
-                    <label htmlFor="firstName">First Name:</label>
-                    <input type='text' name="firstName" id="firstName"></input>
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input type='text' name="lastName" id="lastName"></input>
+                    <input type='text' name="username" id="username" onChange={(e) => handleChange(e)} value={userData.username} />
                     <label htmlFor="password">Password:</label>
-                    <input type='password' name="password" id="password"></input>
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input type='password' name="confirmPassword" id="confirmPassword"></input> 
+                    <input type='password' name="password" id="password" onChange={(e) => handleChange(e)} value={userData.password} />
+                    <button type="button" onClick={handleSubmit}>Submit</button>
                 </form>
                 <hr/>
                 <h2>Sign In as Guest</h2>
