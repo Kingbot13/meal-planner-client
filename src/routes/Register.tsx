@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { redirect } from "react-router-dom";
+import { useRegisterMutation } from "../features/api/apiSlice";
 
 export const Register = () => {
 
@@ -17,8 +18,22 @@ export const Register = () => {
         setValues(valueCopy);
     }
 
-    const handleSubmit = () => {
-        
+    const [register] = useRegisterMutation();
+
+    const handleSubmit = async () => {
+        try {
+            await register(value).unwrap();
+            setValues({
+                username: "",
+                firstName: "",
+                lastName: "",
+                password: "",
+                confirmPassword: "",
+            });
+            redirect('/login');
+        } catch(err) {
+            console.error('error registering new user', err);
+        }
     }
     const guestSignIn = () => {
         const storage = localStorage;
@@ -33,15 +48,16 @@ export const Register = () => {
                 <h1>Register</h1>
                 <form>
                     <label htmlFor="username">Email:</label>
-                    <input type='text' name="username" id="username" onChange={(e)=>handleChange} value={value.username}></input>
+                    <input type='text' name="username" id="username" onChange={(e)=>handleChange(e)} value={value.username}></input>
                     <label htmlFor="firstName">First Name:</label>
-                    <input type='text' name="firstName" id="firstName" onChange={(e)=>handleChange} value={value.firstName}></input>
+                    <input type='text' name="firstName" id="firstName" onChange={(e)=>handleChange(e)} value={value.firstName}></input>
                     <label htmlFor="lastName">Last Name:</label>
-                    <input type='text' name="lastName" id="lastName" onChange={(e)=>handleChange} value={value.lastName}></input>
+                    <input type='text' name="lastName" id="lastName" onChange={(e)=>handleChange(e)} value={value.lastName}></input>
                     <label htmlFor="password">Password:</label>
-                    <input type='password' name="password" id="password" onChange={(e)=>handleChange} value={value.password}></input>
+                    <input type='password' name="password" id="password" onChange={(e)=>handleChange(e)} value={value.password}></input>
                     <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input type='password' name="confirmPassword" id="confirmPassword" onChange={(e)=>handleChange} value={value.confirmPassword}></input> 
+                    <input type='password' name="confirmPassword" id="confirmPassword" onChange={(e)=>handleChange(e)} value={value.confirmPassword}></input> 
+                    <button type="button" onClick={handleSubmit}>Register</button>
                 </form>
                 <hr/>
                 <h2>Sign In as Guest</h2>
