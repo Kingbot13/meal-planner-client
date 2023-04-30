@@ -16,6 +16,10 @@ export const Register = () => {
         valueCopy[e.target.name] = e.target.value;
         setValues(valueCopy);
     }
+
+    const handleSubmit = () => {
+        
+    }
     const guestSignIn = () => {
         const storage = localStorage;
         storage.getItem('guest') ? redirect('/') 
