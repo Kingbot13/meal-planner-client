@@ -34,6 +34,7 @@ export const LogIn = () => {
                 await logIn(userData).unwrap();
                 setUserData({username: '', password: ''});
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('userId', data.user._id);
             } catch(err) {
                 console.error("failed to log in user", err);
             }

@@ -26,6 +26,16 @@ export const apiSlice = createApi({
           method: 'POST',
           body: user
         })
+      }),
+      addRecipe: builder.mutation({
+        query: (userId, recipe) => ({
+          url: `/users/${userId}/recipes`,
+          method: 'POST',
+          body: recipe
+        })
+      }),
+      getUser: builder.query({
+        query: userId => `/users/${userId}`
       })
     })
 });
@@ -33,4 +43,6 @@ export const apiSlice = createApi({
 export const {
   useLogInMutation,
   useRegisterMutation,
+  useAddRecipeMutation,
+  useGetUserQuery
 } = apiSlice;
