@@ -36,6 +36,9 @@ export const apiSlice = createApi({
       }),
       getUser: builder.query({
         query: userId => `/users/${userId}`
+      }),
+      getUserRecipes: builder.query({
+        query: userId => `/users/${userId}/recipes`
       })
     })
 });
@@ -44,5 +47,6 @@ export const {
   useLogInMutation,
   useRegisterMutation,
   useAddRecipeMutation,
-  useGetUserQuery
+  useGetUserQuery,
+  useGetUserRecipesQuery
 } = apiSlice;
