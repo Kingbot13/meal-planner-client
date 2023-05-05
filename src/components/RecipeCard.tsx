@@ -2,10 +2,10 @@
 
 export const RecipeCard = (recipeName: string) => {
     return (
-        <div>
+        <li>
             <div>
                 <div>{recipeName}</div>
             </div>
-        </div>
+        </li>
     )
 }
