@@ -1,9 +1,13 @@
-
+import { RecipeList } from "../components/RecipeList";
 
 export const Dashboard = () => {
 
 
     return (
-        <main></main>
+        <main>
+            <div>
+                <RecipeList />
+            </div>
+        </main>
     )
 }
