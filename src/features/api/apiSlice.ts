@@ -28,8 +28,8 @@ export const apiSlice = createApi({
         })
       }),
       addRecipe: builder.mutation({
-        query: (userId, recipe) => ({
-          url: `/users/${userId}/recipes`,
+        query: (recipe) => ({
+          url: `/users/${recipe.userId}/recipes`,
           method: 'POST',
           body: recipe
         })
