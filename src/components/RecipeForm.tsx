@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { IngredientInputs } from "./IngredientInputs";
 import { RecipeInputs } from "./RecipeInputs";
-import { useAddRecipeMutation } from "../features/api/apiSlice";
+import { useAddRecipeMutation, useGetSingleRecipeQuery } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
 
 export const RecipeForm = () => {
     const [ingredientValues, setIngredientValues] = useState([{name: "", measurement: ""}]);
     const [recipeValues, setRecipeValues] = useState([{value: ""}]);
     const [recipeName, setRecipeName] = useState("");
+    const [recipeInfo, setRecipeInfo] = useState({userId: '', recipeId: ''});
 
     const [addRecipe] = useAddRecipeMutation();
 
-    const isGuest = localStorage.getItem('guest') ? true : null;
+    const {data: recipe, isLoading} = useGetSingleRecipeQuery(recipeInfo);
+
+    const {isGuest} = guestUtils;
 
     const handleIngredientChange = (i: number, e: any) => {
         let valuesCopy = [...ingredientValues];
@@ -63,10 +66,14 @@ export const RecipeForm = () => {
                 console.error(err);
             }
         }
-
-        
-
     }
+    // TODO: finish function
+    const updateRecipe = (e) => {
+        if (isGuest) {
+
+        }
+    }
+
     return (
         <div>
             <h2>New Recipe</h2>

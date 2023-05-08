@@ -3,6 +3,8 @@
 export const guestUtils = (() => {
     const storage = localStorage;
 
+    const isGuest = storage.getItem('guest') ? true : false;
+
     const recipes: object[] = JSON.parse(`${storage.getItem('recipes')}`) ?? [];
     // save recipe
     const saveRecipe = (name: string, ingredients: object[], steps: object[]) => {
@@ -29,6 +31,11 @@ export const guestUtils = (() => {
         storage.setItem('recipes', JSON.stringify(filteredRecipes));
     }
 
-    return {saveRecipe, recipes, deleteRecipe, updateRecipe}
+    const getGuestSingleRecipe = (name: string) => {
+        const recipe = recipes.filter(item => item.name === name); 
+        return recipe[0];
+    }
+
+    return {saveRecipe, recipes, deleteRecipe, updateRecipe, isGuest, getGuestSingleRecipe}
 })();
 
