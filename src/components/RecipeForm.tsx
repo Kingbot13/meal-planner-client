@@ -14,7 +14,7 @@ export const RecipeForm = () => {
 
     const {data: recipe, isLoading} = useGetSingleRecipeQuery(recipeInfo);
 
-    const {isGuest} = guestUtils;
+    const {isGuest, getGuestSingleRecipe} = guestUtils;
 
     const handleIngredientChange = (i: number, e: any) => {
         let valuesCopy = [...ingredientValues];
@@ -70,7 +70,7 @@ export const RecipeForm = () => {
     // TODO: finish function
     const updateRecipe = (e) => {
         if (isGuest) {
-
+            const recipe = getGuestSingleRecipe()
         }
     }
 
