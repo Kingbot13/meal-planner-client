@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IngredientInputs } from "./IngredientInputs";
 import { RecipeInputs } from "./RecipeInputs";
 import { useAddRecipeMutation } from "../features/api/apiSlice";
+import { guestUtils } from "../app/guestUtils";
 
 export const RecipeForm = () => {
     const [ingredientValues, setIngredientValues] = useState([{name: "", measurement: ""}]);
@@ -9,6 +10,8 @@ export const RecipeForm = () => {
     const [recipeName, setRecipeName] = useState("");
 
     const [addRecipe] = useAddRecipeMutation();
+
+    const isGuest = localStorage.getItem('guest') ? true : null;
 
     const handleIngredientChange = (i: number, e: any) => {
         let valuesCopy = [...ingredientValues];
@@ -47,14 +50,18 @@ export const RecipeForm = () => {
     }
     // TODO: add form validation
     const submit = async () => {
-        try{
-            const recipe = {name: recipeName, ingredients: [...ingredientValues], steps: [...recipeValues], userId: localStorage.getItem('userId')};
-            await addRecipe(recipe).unwrap();
-            setIngredientValues([{name: '', measurement: ''}]);
-            setRecipeName('');
-            setRecipeValues([{value: ''}]);
-        } catch(err) {
-            console.error(err);
+        if (isGuest) {
+            guestUtils.saveRecipe(recipeName, ingredientValues, recipeValues);
+        } else {
+            try{
+                const recipe = {name: recipeName, ingredients: [...ingredientValues], steps: [...recipeValues], userId: localStorage.getItem('userId')};
+                await addRecipe(recipe).unwrap();
+                setIngredientValues([{name: '', measurement: ''}]);
+                setRecipeName('');
+                setRecipeValues([{value: ''}]);
+            } catch(err) {
+                console.error(err);
+            }
         }
 
     }
