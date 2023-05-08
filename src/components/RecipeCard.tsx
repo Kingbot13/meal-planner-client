@@ -5,6 +5,8 @@ export const RecipeCard = (recipeName: string) => {
         <li>
             <div>
                 <div>{recipeName}</div>
+                <button type="button">Update</button>
+                <button type="button">Delete</button>
             </div>
         </li>
     )
