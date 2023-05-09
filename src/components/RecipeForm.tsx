@@ -68,9 +68,16 @@ export const RecipeForm = () => {
         }
     }
     // TODO: finish function
-    const updateRecipe = (e) => {
+    const updateRecipe = async (e) => {
         if (isGuest) {
-            const recipe = getGuestSingleRecipe()
+            const recipe = getGuestSingleRecipe(e.target.dataId);
+            setIngredientValues(recipe.ingredients);
+            setRecipeName(recipe.name);
+            setRecipeValues(recipe.steps);
+        } else {
+            try {
+                
+            }
         }
     }
 

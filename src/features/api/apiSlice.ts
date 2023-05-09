@@ -34,6 +34,13 @@ export const apiSlice = createApi({
           body: recipe
         })
       }),
+      updateRecipe: builder.mutation({
+        query: recipe => ({
+          url: `/users/${recipe.userId}/recipes/${recipe.recipeId}`,
+          method: 'PUT',
+          body: recipe
+        })
+      }),
       getUser: builder.query({
         query: userId => `/users/${userId}`
       }),
@@ -41,7 +48,7 @@ export const apiSlice = createApi({
         query: userId => `/users/${userId}/recipes`
       }),
       getSingleRecipe: builder.query({
-        query: recipe => `/users/${recipe.userId}/recipes/${recipe.recipeID}`
+        query: recipe => `/users/${recipe.userId}/recipes/${recipe.recipeId}`
       })
     })
 });
@@ -52,5 +59,6 @@ export const {
   useAddRecipeMutation,
   useGetUserQuery,
   useGetUserRecipesQuery,
-  useGetSingleRecipeQuery
+  useGetSingleRecipeQuery,
+  useUpdateRecipeMutation
 } = apiSlice;
