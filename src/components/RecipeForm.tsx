@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IngredientInputs } from "./IngredientInputs";
 import { RecipeInputs } from "./RecipeInputs";
-import { useAddRecipeMutation, useGetSingleRecipeQuery } from "../features/api/apiSlice";
+import { useAddRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
 
 export const RecipeForm = () => {
@@ -11,6 +11,7 @@ export const RecipeForm = () => {
     const [recipeInfo, setRecipeInfo] = useState({userId: '', recipeId: ''});
 
     const [addRecipe] = useAddRecipeMutation();
+    const [updateRecipe] = useUpdateRecipeMutation();
 
     const {data: recipe, isLoading} = useGetSingleRecipeQuery(recipeInfo);
 
@@ -67,18 +68,19 @@ export const RecipeForm = () => {
             }
         }
     }
-    // TODO: finish function
-    const updateRecipe = async (e) => {
+    // TODO: move function to where it can be reached by RecipeCard's update button. 
+    // state may need to be moved up to Dashboard
+    const toggleRecipeUpdate = (e) => {
         if (isGuest) {
             const recipe = getGuestSingleRecipe(e.target.dataId);
             setIngredientValues(recipe.ingredients);
             setRecipeName(recipe.name);
             setRecipeValues(recipe.steps);
         } else {
-            try {
-                
-            }
-        }
+            setIngredientValues(recipe.ingredients);
+            setRecipeName(recipe.name);
+            setRecipeValues(recipe.steps);
+        };
     }
 
     return (
