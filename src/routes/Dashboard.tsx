@@ -11,6 +11,7 @@ export const Dashboard = () => {
     const [recipeValues, setRecipeValues] = useState([{value: ""}]);
     const [recipeName, setRecipeName] = useState("");
     const [recipeInfo, setRecipeInfo] = useState({userId: '', recipeId: ''});
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -54,30 +55,42 @@ export const Dashboard = () => {
         valuesCopy.splice(i, 1);
         setRecipeValues(valuesCopy);
     }
-    // TODO: add form validation
+
     const submit = async () => {
         if (isGuest) {
-            guestUtils.saveRecipe(recipeName, ingredientValues, recipeValues);
+            if (isUpdate) {
+                const recipe = {ingredientValues, recipeValues};
+                guestUtils.updateRecipe(recipeName, recipe);
+            } else {
+                guestUtils.saveRecipe(recipeName, ingredientValues, recipeValues);
+            }
         } else {
             try{
                 const recipe = {name: recipeName, ingredients: [...ingredientValues], steps: [...recipeValues], userId: localStorage.getItem('userId')};
-                await addRecipe(recipe).unwrap();
-                setIngredientValues([{name: '', measurement: ''}]);
-                setRecipeName('');
-                setRecipeValues([{value: ''}]);
+                if (isUpdate) {
+                    await updateRecipe(recipe).unwrap();
+                } else {
+                    await addRecipe(recipe).unwrap();
+                }
             } catch(err) {
                 console.error(err);
             }
         }
+        setIsUpdate(false);
+        setIngredientValues([{name: '', measurement: ''}]);
+        setRecipeName('');
+        setRecipeValues([{value: ''}]);
     }
 
     const toggleRecipeUpdate = (e) => {
+        setIsUpdate(!isUpdate ? true : false);
         if (isGuest) {
             const recipe = getGuestSingleRecipe(e.target.dataId);
             setIngredientValues(recipe.ingredients);
             setRecipeName(recipe.name);
             setRecipeValues(recipe.steps);
         } else {
+            setRecipeInfo({userId: localStorage.getItem('userId'), recipeId: e.target.dataId});
             setIngredientValues(recipe.ingredients);
             setRecipeName(recipe.name);
             setRecipeValues(recipe.steps);
