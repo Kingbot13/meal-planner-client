@@ -70,8 +70,7 @@ export const Dashboard = () => {
             }
         }
     }
-    // TODO: move function to where it can be reached by RecipeCard's update button. 
-    // state may need to be moved up to Dashboard
+
     const toggleRecipeUpdate = (e) => {
         if (isGuest) {
             const recipe = getGuestSingleRecipe(e.target.dataId);
@@ -93,10 +92,10 @@ export const Dashboard = () => {
     return (
         <main>
             <div>
-                <RecipeList />
+                <RecipeList recipeUpdate={toggleRecipeUpdate} />
             </div>
             <button type="button"onClick={toggleForm}>New Recipe</button>
-            {showForm && <RecipeForm />}
+            {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
         </main>
     )
 }
