@@ -1,7 +1,7 @@
 import { RecipeList } from "../components/RecipeList";
 import { RecipeForm } from "../components/RecipeForm";
 import { useState } from "react";
-import { useAddRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
+import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
 
 
@@ -15,6 +15,7 @@ export const Dashboard = () => {
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
+    const [deleteRecipe] = useDeleteRecipeMutation();
 
     const {data: recipe, isLoading} = useGetSingleRecipeQuery(recipeInfo);
 
@@ -97,6 +98,19 @@ export const Dashboard = () => {
         };
     }
 
+    const removeRecipe = async (e) => {
+        if (isGuest) {
+            guestUtils.deleteRecipe(e.target.dataId);
+        } else {
+            try {
+                const recipe = {userId: localStorage.getItem('userId'), recipeId: e.target.dataId};
+                await deleteRecipe(recipe).unwrap();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+
 
     const toggleForm = () => {
         setShowForm(!showForm ? true : false);
@@ -105,7 +119,7 @@ export const Dashboard = () => {
     return (
         <main>
             <div>
-                <RecipeList recipeUpdate={toggleRecipeUpdate} />
+                <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
             </div>
             <button type="button"onClick={toggleForm}>New Recipe</button>
             {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
