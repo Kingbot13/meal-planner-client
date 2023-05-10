@@ -41,6 +41,13 @@ export const apiSlice = createApi({
           body: recipe
         })
       }),
+      deleteRecipe: builder.mutation({
+        query: recipe => ({
+          url: `/users/${recipe.userId}/recipes/${recipe.recipeId}`,
+          method: 'DELETE',
+          body: recipe
+        })
+      }),
       getUser: builder.query({
         query: userId => `/users/${userId}`
       }),
@@ -60,5 +67,6 @@ export const {
   useGetUserQuery,
   useGetUserRecipesQuery,
   useGetSingleRecipeQuery,
-  useUpdateRecipeMutation
+  useUpdateRecipeMutation,
+  useDeleteRecipeMutation
 } = apiSlice;
