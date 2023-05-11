@@ -15,9 +15,9 @@ const root = createRoot(container);
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/user/:userId",
     element: <App />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
   },
   {
     path: "/login",

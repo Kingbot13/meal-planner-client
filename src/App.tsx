@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { redirect } from 'react-router-dom';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { redirect, Outlet } from 'react-router-dom';
 import { useGuestStatus } from './app/hooks';
 import './App.css';
+import { Dashboard } from './routes/Dashboard';
 
 function App() {
   const guest = useGuestStatus();
@@ -13,7 +12,7 @@ function App() {
   }, [guest]);
   return (
     <div className="App">
-      
+      <Dashboard />
     </div>
   );
 }

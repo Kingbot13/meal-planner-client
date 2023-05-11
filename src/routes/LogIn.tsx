@@ -6,12 +6,13 @@ import { useLogInMutation } from "../features/api/apiSlice";
 import { useState } from "react";
 
 export const LogIn = () => {
+
     const guestSignIn = () => {
         const storage = localStorage;
-        storage.getItem('guest') ? redirect('/') 
+        storage.getItem('guest') ? redirect('/user/guest') 
         :
         storage.setItem('guest', 'true');
-        redirect('/');
+        redirect('/user/guest');
     }
     const [userData, setUserData] = useState({
         username: '',
@@ -35,6 +36,7 @@ export const LogIn = () => {
                 setUserData({username: '', password: ''});
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userId', data.user._id);
+                redirect(`/user/${data._id}`);
             } catch(err) {
                 console.error("failed to log in user", err);
             }
