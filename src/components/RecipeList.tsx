@@ -1,8 +1,9 @@
 import { RecipeCard } from "./RecipeCard";
 import { useGetUserRecipesQuery } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
+import { ButtonEvent } from "../app/types";
 
-export const RecipeList = (recipeUpdate: Function, deleteRecipe: Function) => {
+export const RecipeList = ({recipeUpdate, deleteRecipe}: {recipeUpdate: ButtonEvent, deleteRecipe: ButtonEvent}) => {
     const {isGuest} = guestUtils;
     const userId = localStorage.getItem('userId');
     const {data: recipes=[]} = useGetUserRecipesQuery(userId);

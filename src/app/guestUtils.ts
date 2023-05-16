@@ -1,17 +1,8 @@
 // utility functions for handling guest interactions
+import { Recipe, Ingredient } from "./types";
 
 export const guestUtils = (() => {
 
-    type Ingredient = {
-        name: string,
-        measurement: string
-    }
-
-    type Recipe = {
-        name: string,
-        ingredients: Ingredient[],
-        steps: {value: string}[]
-    }
 
     const storage = localStorage;
 

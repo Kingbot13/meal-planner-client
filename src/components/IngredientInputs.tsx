@@ -1,6 +1,8 @@
+import { IngredientInputProps } from "../app/types"
 
 
-export const IngredientInputs = (number: number, value: {name: string, measurement: string}, onChange: Function, removeFields: Function) => {
+
+export const IngredientInputs = ({number, value, onChange, removeFields}: IngredientInputProps) => {
     return (
         <div>
         <input type='text' name='name' id={`ingredient${number}`} value={value.name} onChange={(e) => onChange(number, e)} />

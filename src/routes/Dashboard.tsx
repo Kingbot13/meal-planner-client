@@ -3,14 +3,14 @@ import { RecipeForm } from "../components/RecipeForm";
 import React, { useState } from "react";
 import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
-
+import { ButtonEvent } from "../app/types";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
     const [ingredientValues, setIngredientValues] = useState([{name: "", measurement: ""}]);
     const [recipeValues, setRecipeValues] = useState([{value: ""}]);
     const [recipeName, setRecipeName] = useState("");
-    const [recipeInfo, setRecipeInfo] = useState({userId: '', recipeId: ''});
+    const [recipeInfo, setRecipeInfo] = useState<{userId: string | null, recipeId: string}>({userId: '', recipeId: ''});
     const [isUpdate, setIsUpdate] = useState(false);
 
     const [addRecipe] = useAddRecipeMutation();
@@ -33,7 +33,7 @@ export const Dashboard = () => {
         setRecipeValues(valuesCopy);
     }
 
-    const handleNameChange = (e: any) => {
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRecipeName(e.target.value);
     }
 
@@ -60,7 +60,7 @@ export const Dashboard = () => {
     const submit = async () => {
         if (isGuest) {
             if (isUpdate) {
-                const recipe = {ingredientValues, recipeValues};
+                const recipe = {ingredients: ingredientValues, steps: recipeValues};
                 guestUtils.updateRecipe(recipeName, recipe);
             } else {
                 guestUtils.saveRecipe(recipeName, ingredientValues, recipeValues);
@@ -83,31 +83,41 @@ export const Dashboard = () => {
         setRecipeValues([{value: ''}]);
     }
 
-    const toggleRecipeUpdate = (e) => {
+    // toggle form for recipe updates
+    const toggleRecipeUpdate = (e: React.MouseEvent<HTMLButtonElement>) => {
         setIsUpdate(!isUpdate ? true : false);
-        if (isGuest) {
-            const recipe = getGuestSingleRecipe(e.target.dataId);
-            setIngredientValues(recipe.ingredients);
-            setRecipeName(recipe.name);
-            setRecipeValues(recipe.steps);
+        if (e.target instanceof HTMLButtonElement && e.target.dataset.id !== undefined) {
+            if (isGuest) {
+                const recipe = getGuestSingleRecipe(e.target.dataset.id);
+                setIngredientValues(recipe.ingredients);
+                setRecipeName(recipe.name);
+                setRecipeValues(recipe.steps);
+            } else {
+                setRecipeInfo({userId: localStorage.getItem('userId'), recipeId: e.target.dataset.id});
+                setIngredientValues(recipe.ingredients);
+                setRecipeName(recipe.name);
+                setRecipeValues(recipe.steps);
+            };
+
         } else {
-            setRecipeInfo({userId: localStorage.getItem('userId'), recipeId: e.target.dataId});
-            setIngredientValues(recipe.ingredients);
-            setRecipeName(recipe.name);
-            setRecipeValues(recipe.steps);
-        };
+            console.log(e.target);
+            throw new Error('event target is neither button nor has valid data attribute');
+        }
     }
 
-    const removeRecipe = async (e) => {
-        if (isGuest) {
-            guestUtils.deleteRecipe(e.target.dataId);
-        } else {
-            try {
-                const recipe = {userId: localStorage.getItem('userId'), recipeId: e.target.dataId};
-                await deleteRecipe(recipe).unwrap();
-            } catch (err) {
-                console.error(err);
+    const removeRecipe = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (e.target instanceof HTMLButtonElement && e.target.dataset.id !== undefined) {
+            if (isGuest) {
+                guestUtils.deleteRecipe(e.target.dataset.id);
+            } else {
+                try {
+                    const recipe = {userId: localStorage.getItem('userId'), recipeId: e.target.dataset.id};
+                    await deleteRecipe(recipe).unwrap();
+                } catch (err) {
+                    console.error(err);
+                }
             }
+
         }
     }
 

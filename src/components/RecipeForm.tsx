@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { IngredientInputs } from "./IngredientInputs";
 import { RecipeInputs } from "./RecipeInputs";
+import { RecipeFormProps } from "../app/types";
 
 export const RecipeForm = (
-    ingredientValues: object[], 
-    recipeValues: object[], 
-    handleNameChange: Function, 
-    handleIngredientChange: Function, 
-    handleRecipeChange: Function, 
-    removeIngredientFields: Function, 
-    addIngredientFields: Function,
-    removeRecipeFields: Function,
-    addRecipeFields: Function,
-    submit: Function 
-    ) => {
+    {ingredientValues, 
+    recipeValues, 
+    handleNameChange, 
+    handleIngredientChange, 
+    handleRecipeChange, 
+    removeIngredientFields, 
+    addIngredientFields,
+    removeRecipeFields,
+    addRecipeFields,
+    submit 
+    }: RecipeFormProps) => {
 
     return (
         <div>
