@@ -1,13 +1,25 @@
 // utility functions for handling guest interactions
 
 export const guestUtils = (() => {
+
+    type Ingredient = {
+        name: string,
+        measurement: string
+    }
+
+    type Recipe = {
+        name: string,
+        ingredients: Ingredient[],
+        steps: {value: string}[]
+    }
+
     const storage = localStorage;
 
     const isGuest = storage.getItem('guest') ? true : false;
 
-    const recipes: object[] = JSON.parse(`${storage.getItem('recipes')}`) ?? [];
+    const recipes: Recipe[] = JSON.parse(`${storage.getItem('recipes')}`) ?? [];
     // save recipe
-    const saveRecipe = (name: string, ingredients: object[], steps: object[]) => {
+    const saveRecipe = (name: string, ingredients: Ingredient[], steps: {value: string}[]) => {
         const recipe = {name, ingredients, steps};
         recipes.push(recipe);
         storage.setItem('recipes', JSON.stringify(recipes));
@@ -25,7 +37,7 @@ export const guestUtils = (() => {
      * filtered recipes then add the updated recipe back into the array.
      * updates param will contain the same info needed to create a new recipe (name, ingredients, steps)
      */
-    const updateRecipe = (name: string, updates: object) => {
+    const updateRecipe = (name: string, updates: Recipe) => {
         const filteredRecipes = recipes.filter(item => item.name !== name);
         filteredRecipes.push(updates);
         storage.setItem('recipes', JSON.stringify(filteredRecipes));

@@ -1,6 +1,6 @@
 import { RecipeList } from "../components/RecipeList";
 import { RecipeForm } from "../components/RecipeForm";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
 
@@ -21,15 +21,15 @@ export const Dashboard = () => {
 
     const {isGuest, getGuestSingleRecipe} = guestUtils;
 
-    const handleIngredientChange = (i: number, e: any) => {
-        let valuesCopy = [...ingredientValues];
+    const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
+        let valuesCopy: {name: string, measurement: string}[] = [...ingredientValues];
         valuesCopy[i][e.target.name] = e.target.value;
         setIngredientValues(valuesCopy);
     };
 
-    const handleRecipeChange = (i: number, e: any) => {
+    const handleRecipeChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
         let valuesCopy = [...recipeValues];
-        valuesCopy[i][e.target.name] = e.target.value;
+        valuesCopy[i].value = e.target.value;
         setRecipeValues(valuesCopy);
     }
 

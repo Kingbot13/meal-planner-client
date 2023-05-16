@@ -1,6 +1,6 @@
 
 
-export const RecipeInputs = (onChange: Function, value: any, number: any, removeFields: Function, addField: Function) => {
+export const RecipeInputs = (onChange: Function, value: string, number: number, removeFields: Function, addField: Function) => {
 
     return (
         <div>
