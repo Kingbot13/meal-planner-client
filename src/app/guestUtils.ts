@@ -37,9 +37,9 @@ export const guestUtils = (() => {
      * filtered recipes then add the updated recipe back into the array.
      * updates param will contain the same info needed to create a new recipe (name, ingredients, steps)
      */
-    const updateRecipe = (name: string, updates: Recipe) => {
+    const updateRecipe = (name: string, updates: {ingredients: Ingredient[], steps: {value: string}[]}) => {
         const filteredRecipes = recipes.filter(item => item.name !== name);
-        filteredRecipes.push(updates);
+        filteredRecipes.push({...updates, name});
         storage.setItem('recipes', JSON.stringify(filteredRecipes));
     }
 
