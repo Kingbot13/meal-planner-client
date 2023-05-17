@@ -14,6 +14,7 @@ export const IngredientInputs = ({number, value, onChange, removeField, addField
             <option value='teaspoon(s)'>Teaspoon(s)</option>
         </select>
         <button type="button" onClick={() => removeField(number)}>X</button>
+        <button type="button" onClick={()=> addField()}>Add ingredient</button>
     </div>
 
     )
