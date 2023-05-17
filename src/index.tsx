@@ -9,15 +9,28 @@ import ErrorPage from './ErrorPage';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { Register } from './routes/Register';
+import { Home } from './routes/Home';
+import { Dashboard } from './routes/Dashboard';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 const router = createBrowserRouter([
   {
-    path: "/user/:userId",
+    path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      },
+      {
+        path: "/user/:userId",
+        element: <Dashboard />,
+        
+      },
+    ]
   },
   {
     path: "/login",
