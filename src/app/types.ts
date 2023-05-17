@@ -5,15 +5,20 @@ export type Ingredient = {
     measurement: string
 };
 
-export type Recipe = {
+interface GuestRecipe {
     name: string,
     ingredients: Ingredient[],
-    steps: {value: string}[]
+    steps: {value: string}[],
+    
 };
 
-type addField = () => void;
+export interface Recipe extends GuestRecipe {
+    _id: string
+};
 
-type removeField = (i: number) => void;
+type AddField = () => void;
+
+type RemoveField = (i: number) => void;
 
 type RecipeIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => void
 
@@ -23,16 +28,32 @@ export type RecipeFormProps = {
     handleIngredientChange: RecipeIngredientChange,
     handleRecipeChange: RecipeIngredientChange,
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    addIngredientFields: addField,
-    addRecipeFields: addField,
-    removeIngredientFields: removeField,
-    removeRecipeFields: removeField,
+    addIngredientFields: AddField,
+    addRecipeFields: AddField,
+    removeIngredientFields: RemoveField,
+    removeRecipeFields: RemoveField,
     submit: () => void
 }
 
 export type IngredientInputProps = {
     number: number,
-    value: {name: string, measurement: string}
+    value: Ingredient
     onChange: RecipeIngredientChange,
-    removeFields: removeField
+    removeField: RemoveField,
+    addField: AddField
+}
+
+export type RecipeInputProps = {
+    number: number,
+    value: string,
+    onChange: RecipeIngredientChange,
+    removeField: RemoveField,
+    addField: AddField
+}
+
+export type RecipeCardProps = {
+    recipeName: string,
+    id: string,
+    recipeUpdate: ButtonEvent,
+    deleteRecipe: ButtonEvent
 }

@@ -2,7 +2,7 @@ import { IngredientInputProps } from "../app/types"
 
 
 
-export const IngredientInputs = ({number, value, onChange, removeFields}: IngredientInputProps) => {
+export const IngredientInputs = ({number, value, onChange, removeField, addField}: IngredientInputProps) => {
     return (
         <div>
         <input type='text' name='name' id={`ingredient${number}`} value={value.name} onChange={(e) => onChange(number, e)} />
@@ -13,7 +13,7 @@ export const IngredientInputs = ({number, value, onChange, removeFields}: Ingred
             <option value='tablespoon(s)'>Tablespoon(s)</option>
             <option value='teaspoon(s)'>Teaspoon(s)</option>
         </select>
-        <button type="button" onClick={() => removeFields(number)}>X</button>
+        <button type="button" onClick={() => removeField(number)}>X</button>
     </div>
 
     )

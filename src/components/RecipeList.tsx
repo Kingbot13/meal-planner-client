@@ -5,7 +5,7 @@ import { ButtonEvent } from "../app/types";
 
 export const RecipeList = ({recipeUpdate, deleteRecipe}: {recipeUpdate: ButtonEvent, deleteRecipe: ButtonEvent}) => {
     const {isGuest} = guestUtils;
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId') as string;
     const {data: recipes=[]} = useGetUserRecipesQuery(userId);
     const content = isGuest? 
         guestUtils.recipes.map(recipe => <RecipeCard recipeName={recipe.name} id={recipe.name} recipeUpdate={recipeUpdate} deleteRecipe={deleteRecipe} /> )

@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import { Recipe } from "../../app/types";
 
 export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({baseUrl: "https://mealplanner.onrender.com/api",
@@ -51,7 +52,7 @@ export const apiSlice = createApi({
       getUser: builder.query({
         query: userId => `/users/${userId}`
       }),
-      getUserRecipes: builder.query({
+      getUserRecipes: builder.query<Recipe[], string>({
         query: userId => `/users/${userId}/recipes`
       }),
       getSingleRecipe: builder.query({

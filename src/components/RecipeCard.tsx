@@ -1,7 +1,8 @@
 // this component could contain small key bits of information such as cooking time
 import { guestUtils } from "../app/guestUtils";
+import { RecipeCardProps } from "../app/types";
 
-export const RecipeCard = (recipeName: string, id: string, recipeUpdate: Function, deleteRecipe: Function) => {
+export const RecipeCard = ({recipeName, id, recipeUpdate, deleteRecipe}: RecipeCardProps) => {
     const {isGuest} = guestUtils;
     return (
         <li>

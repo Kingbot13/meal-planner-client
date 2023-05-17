@@ -23,7 +23,7 @@ export const Dashboard = () => {
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
         let valuesCopy: {name: string, measurement: string}[] = [...ingredientValues];
-        valuesCopy[i][e.target.name] = e.target.value;
+        valuesCopy[i][e.target.name as 'name' | 'measurement'] = e.target.value;
         setIngredientValues(valuesCopy);
     };
 

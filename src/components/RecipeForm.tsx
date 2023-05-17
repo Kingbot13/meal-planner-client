@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { IngredientInputs } from "./IngredientInputs";
 import { RecipeInputs } from "./RecipeInputs";
 import { RecipeFormProps } from "../app/types";
@@ -34,7 +33,7 @@ export const RecipeForm = (
             <p>Steps</p>
             <form id="steps-form">
                 {recipeValues.map((item, index) => {
-                    return <RecipeInputs key={index} number={index} value={item} onChange={handleRecipeChange} removeField={removeRecipeFields} addField={addRecipeFields} />
+                    return <RecipeInputs key={index} number={index} value={item.value} onChange={handleRecipeChange} removeField={removeRecipeFields} addField={addRecipeFields} />
                 })}
             </form>
             <button type="button" onClick={()=>submit()}>Create New Recipe</button>
