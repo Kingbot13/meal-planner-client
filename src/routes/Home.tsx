@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
 
@@ -6,8 +6,8 @@ export const Home = () => {
         <main>
             <h1>Welcome! Please sign in or register</h1>
             <div>
-                <button onClick={()=>redirect('/login')}>Sign In</button>
-                <button onClick={()=>redirect('/register')}>Register</button>
+                <Link to='/login'>Sign In</Link>
+                <Link to='/register'>Sign In</Link>
             </div>
         </main>
     )
