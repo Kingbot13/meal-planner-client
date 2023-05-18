@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { redirect } from "react-router-dom";
 import { useRegisterMutation } from "../features/api/apiSlice";
 
@@ -12,9 +12,9 @@ export const Register = () => {
         confirmPassword: "",
     });
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const valueCopy = {...value};
-        valueCopy[e.target.name] = e.target.value;
+        valueCopy[e.target.name as 'username' | 'firstName' | 'lastName' | 'password' | 'confirmPassword'] = e.target.value;
         setValues(valueCopy);
     }
 
