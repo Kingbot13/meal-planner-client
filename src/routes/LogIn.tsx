@@ -3,15 +3,20 @@
 */
 import { redirect } from "react-router-dom";
 import { useLogInMutation } from "../features/api/apiSlice";
-import { useState } from "react";
+import React, { useState } from "react";
+import { guestSwitch } from "../features/guest/guestSlice";
+import { useAppDispatch } from "../app/hooks";
 
 export const LogIn = () => {
 
+    const dispatch = useAppDispatch();
+
     const guestSignIn = () => {
-        const storage = localStorage;
-        storage.getItem('guest') ? redirect('/user/guest') 
-        :
-        storage.setItem('guest', 'true');
+        // const storage = localStorage;
+        // storage.getItem('guest') ? redirect('/user/guest') 
+        // :
+        // storage.setItem('guest', 'true');
+        dispatch(guestSwitch());
         redirect('/user/guest');
     }
     const [userData, setUserData] = useState({
@@ -19,9 +24,9 @@ export const LogIn = () => {
         password: ''
     });
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const userDataCopy = {...userData};
-        userDataCopy[e.target.name] = e.target.value;
+        userDataCopy[e.target.name as 'username' | 'password'] = e.target.value;
         setUserData(userDataCopy);
     }
 
