@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { redirect } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
 import { useRegisterMutation } from "../features/api/apiSlice";
+import { guestSwitch } from "../features/guest/guestSlice";
 
 export const Register = () => {
 
@@ -20,6 +22,8 @@ export const Register = () => {
 
     const [register] = useRegisterMutation();
 
+    const dispatch = useAppDispatch();
+
     const handleSubmit = async () => {
         try {
             await register(value).unwrap();
@@ -36,11 +40,12 @@ export const Register = () => {
         }
     }
     const guestSignIn = () => {
-        const storage = localStorage;
-        storage.getItem('guest') ? redirect('/') 
-        :
-        storage.setItem('guest', 'true');
-        redirect('/');
+        // const storage = localStorage;
+        // storage.getItem('guest') ? redirect('/') 
+        // :
+        // storage.setItem('guest', 'true');
+        dispatch(guestSwitch());
+        redirect('/user/guest');
     }
     return (
         <div>
