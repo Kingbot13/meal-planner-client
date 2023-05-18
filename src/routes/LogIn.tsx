@@ -2,7 +2,7 @@
     rtk query will be used to handle form data
 */
 import { redirect } from "react-router-dom";
-import { useLogInMutation } from "../features/api/apiSlice";
+import { useSignInMutation } from "../features/api/apiSlice";
 import React, { useState } from "react";
 import { guestSwitch } from "../features/guest/guestSlice";
 import { useAppDispatch } from "../app/hooks";
@@ -10,6 +10,8 @@ import { useAppDispatch } from "../app/hooks";
 export const LogIn = () => {
 
     const dispatch = useAppDispatch();
+
+    const [signIn, {data}] = useSignInMutation();
 
     const guestSignIn = () => {
         // const storage = localStorage;
@@ -32,16 +34,17 @@ export const LogIn = () => {
 
     const canSubmit = [userData.password, userData.username].every(Boolean);
 
-    [logIn, {data}] = useLogInMutation();
 
     const handleSubmit = async () => {
         if (canSubmit) {
             try {
-                await logIn(userData).unwrap();
+                await signIn(userData).unwrap();
                 setUserData({username: '', password: ''});
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('userId', data.user._id);
-                redirect(`/user/${data._id}`);
+                if (data) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('userId', data.user._id);
+                    redirect(`/user/${data.user._id}`);
+                }
             } catch(err) {
                 console.error("failed to log in user", err);
             }

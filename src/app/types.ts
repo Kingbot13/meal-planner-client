@@ -5,6 +5,14 @@ export type Ingredient = {
     measurement: string
 };
 
+export interface User {
+    firstName: string,
+    lastName: string,
+    recipes: Recipe[],
+    shuffledRecipes: Recipe[],
+    _id: string
+}
+
 export interface GuestRecipe {
     name: string,
     ingredients: Ingredient[],

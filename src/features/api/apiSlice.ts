@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import { Recipe } from "../../app/types";
+import { Recipe, User } from "../../app/types";
 
 export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({baseUrl: "https://mealplanner.onrender.com/api",
@@ -14,7 +14,7 @@ export const apiSlice = createApi({
       },}),
     
     endpoints: builder => ({
-      logIn: builder.mutation({
+      signIn: builder.mutation<{user: User, token: string}, {username: string, password: string}>({
         query: user => ({
           url: '/login',
           method: 'POST',
@@ -62,7 +62,7 @@ export const apiSlice = createApi({
 });
 
 export const {
-  useLogInMutation,
+  useSignInMutation,
   useRegisterMutation,
   useAddRecipeMutation,
   useGetUserQuery,
