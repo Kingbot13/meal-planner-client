@@ -5,7 +5,7 @@ export type Ingredient = {
     measurement: string
 };
 
-interface GuestRecipe {
+export interface GuestRecipe {
     name: string,
     ingredients: Ingredient[],
     steps: {value: string}[],

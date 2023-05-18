@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
 import { ButtonEvent } from "../app/types";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -17,9 +18,12 @@ export const Dashboard = () => {
     const [updateRecipe] = useUpdateRecipeMutation();
     const [deleteRecipe] = useDeleteRecipeMutation();
 
+    const dispatch = useAppDispatch();
+    const isGuest = useAppSelector(state => state.guest.isGuest);
+
     const {data: recipe, isLoading} = useGetSingleRecipeQuery(recipeInfo);
 
-    const {isGuest, getGuestSingleRecipe} = guestUtils;
+    const {getGuestSingleRecipe} = guestUtils;
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
         let valuesCopy: {name: string, measurement: string}[] = [...ingredientValues];
