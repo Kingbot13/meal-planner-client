@@ -14,6 +14,12 @@ const guestSlice = createSlice({
         },
         guestAddRecipe(state, action) {
             state.recipes.push(action.payload);
+        },
+        guestUpdateRecipe(state, action) {
+            const {name} = action.payload;
+            const filteredRecipes = state.recipes.filter(item => item.name !== name);
+            filteredRecipes.push(action.payload);
+            state.recipes = filteredRecipes;
         }
         
     }

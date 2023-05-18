@@ -1,6 +1,3 @@
-/* 
-    rtk query will be used to handle form data
-*/
 import { redirect } from "react-router-dom";
 import { useSignInMutation } from "../features/api/apiSlice";
 import React, { useState } from "react";
