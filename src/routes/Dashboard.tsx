@@ -2,9 +2,7 @@ import { RecipeList } from "../components/RecipeList";
 import { RecipeForm } from "../components/RecipeForm";
 import React, { useState } from "react";
 import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
-import { guestUtils } from "../app/guestUtils";
-import { guestAddRecipe, guestUpdateRecipe } from "../features/guest/guestSlice";
-import { ButtonEvent } from "../app/types";
+import { guestAddRecipe, guestDeleteRecipe, guestUpdateRecipe } from "../features/guest/guestSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
 export const Dashboard = () => {
@@ -26,7 +24,7 @@ export const Dashboard = () => {
         return state.guest.recipes.find(item => item.name === guestRecipeId);
     })
 
-    const {data: recipe, isLoading} = useGetSingleRecipeQuery(recipeInfo);
+    const {data: recipe} = useGetSingleRecipeQuery(recipeInfo);
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
         let valuesCopy: {name: string, measurement: string}[] = [...ingredientValues];
@@ -120,7 +118,7 @@ export const Dashboard = () => {
     const removeRecipe = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (e.target instanceof HTMLButtonElement && e.target.dataset.id !== undefined) {
             if (isGuest) {
-                guestUtils.deleteRecipe(e.target.dataset.id);
+                dispatch(guestDeleteRecipe(e.target.dataset.id));
             } else {
                 try {
                     const recipe = {userId: localStorage.getItem('userId'), recipeId: e.target.dataset.id};
