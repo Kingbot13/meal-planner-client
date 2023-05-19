@@ -20,11 +20,16 @@ const guestSlice = createSlice({
             const filteredRecipes = state.recipes.filter(item => item.name !== name);
             filteredRecipes.push(action.payload);
             state.recipes = filteredRecipes;
+        },
+        guestDeleteRecipe(state, action) {
+            const {name} = action.payload;
+            const filteredRecipes = state.recipes.filter(item => item.name !== name);
+            state.recipes = filteredRecipes;
         }
         
     }
 });
 
-export const {guestSwitch, guestAddRecipe, guestUpdateRecipe} = guestSlice.actions;
+export const {guestSwitch, guestAddRecipe, guestUpdateRecipe, guestDeleteRecipe} = guestSlice.actions;
 
 export default guestSlice.reducer
