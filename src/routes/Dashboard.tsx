@@ -1,9 +1,10 @@
 import { RecipeList } from "../components/RecipeList";
 import { RecipeForm } from "../components/RecipeForm";
 import React, { useState } from "react";
-import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
+import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useGetUserQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestAddRecipe, guestDeleteRecipe, guestUpdateRecipe } from "../features/guest/guestSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useParams } from "react-router-dom";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -13,6 +14,10 @@ export const Dashboard = () => {
     const [recipeInfo, setRecipeInfo] = useState<{userId: string | null, recipeId: string}>({userId: '', recipeId: ''});
     const [isUpdate, setIsUpdate] = useState(false);
     const [guestRecipeId, setGuestRecipeId] = useState('');
+
+    const {userId} = useParams();
+
+    const {data: user, isLoading} = useGetUserQuery(userId);
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -72,7 +77,7 @@ export const Dashboard = () => {
             }
         } else {
             try{
-                const recipe = {name: recipeName, ingredients: [...ingredientValues], steps: [...recipeValues], userId: localStorage.getItem('userId')};
+                const recipe = {name: recipeName, ingredients: [...ingredientValues], steps: [...recipeValues], userId};
                 if (isUpdate) {
                     await updateRecipe(recipe).unwrap();
                 } else {
@@ -103,7 +108,7 @@ export const Dashboard = () => {
                     throw new Error('could not update guest recipe');
                 }
             } else {
-                setRecipeInfo({userId: localStorage.getItem('userId'), recipeId: e.target.dataset.id});
+                setRecipeInfo({userId: userId as string, recipeId: e.target.dataset.id});
                 setIngredientValues(recipe.ingredients);
                 setRecipeName(recipe.name);
                 setRecipeValues(recipe.steps);
@@ -121,7 +126,7 @@ export const Dashboard = () => {
                 dispatch(guestDeleteRecipe(e.target.dataset.id));
             } else {
                 try {
-                    const recipe = {userId: localStorage.getItem('userId'), recipeId: e.target.dataset.id};
+                    const recipe = {userId: userId as string, recipeId: e.target.dataset.id};
                     await deleteRecipe(recipe).unwrap();
                 } catch (err) {
                     console.error(err);
@@ -138,6 +143,7 @@ export const Dashboard = () => {
 
     return (
         <main>
+            <h1>Welcome {user ? user.firsName : 'Guest'} </h1>
             <div>
                 <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
             </div>
