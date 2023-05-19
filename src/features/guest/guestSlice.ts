@@ -25,6 +25,6 @@ const guestSlice = createSlice({
     }
 });
 
-export const {guestSwitch, guestAddRecipe} = guestSlice.actions;
+export const {guestSwitch, guestAddRecipe, guestUpdateRecipe} = guestSlice.actions;
 
 export default guestSlice.reducer

@@ -3,6 +3,7 @@ import { RecipeForm } from "../components/RecipeForm";
 import React, { useState } from "react";
 import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
+import { guestAddRecipe, guestUpdateRecipe } from "../features/guest/guestSlice";
 import { ButtonEvent } from "../app/types";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 
@@ -13,6 +14,7 @@ export const Dashboard = () => {
     const [recipeName, setRecipeName] = useState("");
     const [recipeInfo, setRecipeInfo] = useState<{userId: string | null, recipeId: string}>({userId: '', recipeId: ''});
     const [isUpdate, setIsUpdate] = useState(false);
+    const [guestRecipeId, setGuestRecipeId] = useState('');
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -20,10 +22,11 @@ export const Dashboard = () => {
 
     const dispatch = useAppDispatch();
     const isGuest = useAppSelector(state => state.guest.isGuest);
+    const guestRecipe = useAppSelector((state) => {
+        return state.guest.recipes.find(item => item.name === guestRecipeId);
+    })
 
     const {data: recipe, isLoading} = useGetSingleRecipeQuery(recipeInfo);
-
-    const {getGuestSingleRecipe} = guestUtils;
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
         let valuesCopy: {name: string, measurement: string}[] = [...ingredientValues];
@@ -63,11 +66,11 @@ export const Dashboard = () => {
 
     const submit = async () => {
         if (isGuest) {
+            const recipe = {name: recipeName, ingredients: ingredientValues, steps: recipeValues};
             if (isUpdate) {
-                const recipe = {ingredients: ingredientValues, steps: recipeValues};
-                guestUtils.updateRecipe(recipeName, recipe);
+                dispatch(guestUpdateRecipe(recipe));
             } else {
-                guestUtils.saveRecipe(recipeName, ingredientValues, recipeValues);
+                dispatch(guestAddRecipe(recipe));
             }
         } else {
             try{
@@ -92,10 +95,15 @@ export const Dashboard = () => {
         setIsUpdate(!isUpdate ? true : false);
         if (e.target instanceof HTMLButtonElement && e.target.dataset.id !== undefined) {
             if (isGuest) {
-                const recipe = getGuestSingleRecipe(e.target.dataset.id);
-                setIngredientValues(recipe.ingredients);
-                setRecipeName(recipe.name);
-                setRecipeValues(recipe.steps);
+                setGuestRecipeId(e.target.dataset.id);
+                if (guestRecipe) {
+                    setIngredientValues(guestRecipe.ingredients);
+                    setRecipeName(guestRecipe.name);
+                    setRecipeValues(guestRecipe.steps);
+                } else {
+                    console.log(guestRecipe);
+                    throw new Error('could not update guest recipe');
+                }
             } else {
                 setRecipeInfo({userId: localStorage.getItem('userId'), recipeId: e.target.dataset.id});
                 setIngredientValues(recipe.ingredients);
