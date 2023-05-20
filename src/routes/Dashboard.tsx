@@ -1,6 +1,6 @@
 import { RecipeList } from "../components/RecipeList";
 import { RecipeForm } from "../components/RecipeForm";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery, useGetUserQuery, useUpdateRecipeMutation } from "../features/api/apiSlice";
 import { guestAddRecipe, guestDeleteRecipe, guestUpdateRecipe } from "../features/guest/guestSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
@@ -14,10 +14,12 @@ export const Dashboard = () => {
     const [recipeInfo, setRecipeInfo] = useState<{userId: string | null, recipeId: string}>({userId: '', recipeId: ''});
     const [isUpdate, setIsUpdate] = useState(false);
     const [guestRecipeId, setGuestRecipeId] = useState('');
+    const [userStatus, setUserStatus] = useState('');
 
     const {userId} = useParams();
 
-    const {data: user, isLoading} = useGetUserQuery(userId);
+    const {data: data, isLoading, isSuccess, isError} = useGetUserQuery(userId);
+    const user = {data};
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -30,6 +32,13 @@ export const Dashboard = () => {
     })
 
     const {data: recipe} = useGetSingleRecipeQuery(recipeInfo);
+
+    useEffect(() => {
+        if (isLoading) setUserStatus('Loading user');
+        if (isSuccess) setUserStatus(user.firstName);
+        if (isError) setUserStatus('Error');
+        console.log(user?.firstName);
+    },[isLoading, isSuccess, user, isError]);
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
         let valuesCopy: {name: string, measurement: string}[] = [...ingredientValues];
@@ -143,7 +152,7 @@ export const Dashboard = () => {
 
     return (
         <main>
-            <h1>Welcome {user ? user.firsName : 'Guest'} </h1>
+            <h1>Welcome {isGuest ? 'Guest' : userStatus} </h1>
             <div>
                 <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
             </div>

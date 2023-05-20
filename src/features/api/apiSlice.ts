@@ -49,11 +49,8 @@ export const apiSlice = createApi({
           body: recipe
         })
       }),
-      getUser: builder.query({
+      getUser: builder.query<User, {userId: string}>({
         query: userId => `/users/${userId}`
-      }),
-      getUserRecipes: builder.query<Recipe[], string>({
-        query: userId => `/users/${userId}/recipes`
       }),
       getSingleRecipe: builder.query({
         query: recipe => `/users/${recipe.userId}/recipes/${recipe.recipeId}`
@@ -66,7 +63,6 @@ export const {
   useRegisterMutation,
   useAddRecipeMutation,
   useGetUserQuery,
-  useGetUserRecipesQuery,
   useGetSingleRecipeQuery,
   useUpdateRecipeMutation,
   useDeleteRecipeMutation

@@ -11,6 +11,9 @@ import './index.css';
 import { Register } from './routes/Register';
 import { Home } from './routes/Home';
 import { Dashboard } from './routes/Dashboard';
+import { worker } from './setupTests';
+
+
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);

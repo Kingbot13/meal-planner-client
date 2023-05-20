@@ -1,12 +1,21 @@
 import { RecipeCard } from "./RecipeCard";
-import { useGetUserRecipesQuery } from "../features/api/apiSlice";
+import { useGetUserQuery } from "../features/api/apiSlice";
 import { guestUtils } from "../app/guestUtils";
-import { ButtonEvent } from "../app/types";
+import { ButtonEvent, Recipe } from "../app/types";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppSelector } from "../app/hooks";
 
 export const RecipeList = ({recipeUpdate, deleteRecipe}: {recipeUpdate: ButtonEvent, deleteRecipe: ButtonEvent}) => {
-    const {isGuest} = guestUtils;
-    const userId = localStorage.getItem('userId') as string;
-    const {data: recipes=[]} = useGetUserRecipesQuery(userId);
+    const {userId} = useParams()
+    const {data: user} = useGetUserQuery(userId);
+    const isGuest = useAppSelector(state => state.guest.isGuest);
+    const recipes: Recipe[] = [];
+    
+    useEffect(() => {
+        if (user) recipes.push(user.recipes);
+    });
+
     const content = isGuest? 
         guestUtils.recipes.map(recipe => <RecipeCard recipeName={recipe.name} id={recipe.name} recipeUpdate={recipeUpdate} deleteRecipe={deleteRecipe} /> )
         :
