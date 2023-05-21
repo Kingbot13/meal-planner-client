@@ -2,12 +2,10 @@ import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { Dashboard } from './Dashboard';
-import { store, setupStore } from '../app/store';
-import { Provider } from 'react-redux';
-import {MemoryRouter} from 'react-router-dom';
 import { renderWithProviders } from '../app/testUtils';
-import {rest} from 'msw';
-import {server} from '../setupTests';
+
+
+const userE = userEvent.setup();
 
 describe('Dashboard guest mode', () => {
     // render(
@@ -47,21 +45,22 @@ describe('Dashboard', () => {
 
     it("displays user's name", async () => {
 
-        // server.use(
-        //     rest.get('*', (req, res, ctx) => {
-        //         return res(ctx.json(apiData))
-        //     })
-        // )
+        renderWithProviders(<Dashboard />);
 
-        const {getByText} = renderWithProviders(<Dashboard />);
-
-        const user = await screen.findByText(/Welcome John/i,{},{timeout: 700});
+        const user = await screen.findByText(/Welcome John/i);
 
         expect(user).toHaveTextContent(/Welcome John/i);
+    })
 
-    //    await waitFor(() =>{
-    //     expect(getByText(/welcome John Doe/i)).toBeInTheDocument();
-    //    } ); 
+    it("renders RecipeForm when create recipe button is clicked", async () => {
+       
+        renderWithProviders(<Dashboard />);
+
+        const button = screen.getByText(/New Recipe/i, {selector: 'button'});
+
+        await userE.click(button);
+
+        expect(screen.getByRole('form')).toBeInTheDocument();
     })
 
 })

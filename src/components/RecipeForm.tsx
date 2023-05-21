@@ -16,27 +16,27 @@ export const RecipeForm = (
     }: RecipeFormProps) => {
 
     return (
-        <div>
+        <form name="recipe-form">
             <h2>New Recipe</h2>
-            <form>
+            <div>
                 <label htmlFor="name">Name:</label>
                 <input type='text' name="name" id="name" onChange={(e)=>handleNameChange(e)} />
-            </form>
+            </div>
             <p>Ingredients</p>
-            <form id="ingredients-form">
+            <div id="ingredients-div">
                 {ingredientValues.map((item, index) => {
                    return <IngredientInputs key={index} number={index} value={item} onChange={handleIngredientChange} removeField={removeIngredientFields} addField={addIngredientFields} />
 
                 })}
-            </form>
+            </div>
             <hr/>
             <p>Steps</p>
-            <form id="steps-form">
+            <div id="steps-div">
                 {recipeValues.map((item, index) => {
                     return <RecipeInputs key={index} number={index} value={item.value} onChange={handleRecipeChange} removeField={removeRecipeFields} addField={addRecipeFields} />
                 })}
-            </form>
+            </div>
             <button type="button" onClick={()=>submit()}>Create New Recipe</button>
-        </div>
+        </form>
     )
 }

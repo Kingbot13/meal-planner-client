@@ -11,13 +11,14 @@ import { setupServer } from 'msw/node'
 
 export const handlers = [
   rest.get("https://mealplanner.onrender.com/api/users/:userId", (_req, res, ctx) => {
-    return res(ctx.json({user: {
-        firstName: 'John',
-        lastName: 'Doe',
-        recipes: [],
-        _id: '123',
-        shuffledRecipes: []
-    }}),
+    const user = {
+      firstName: 'John',
+      lastName: 'Doe',
+      recipes: [],
+      _id: '123',
+      shuffledRecipes: []
+  }
+    return res(ctx.json(user),
         ctx.status(200))
   }),
   rest.get("https://mealplanner.onrender.com/api/user/123/recipes", (req, res, ctx) => {

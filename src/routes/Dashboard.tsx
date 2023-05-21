@@ -18,8 +18,7 @@ export const Dashboard = () => {
 
     const {userId} = useParams();
 
-    const {data: data, isLoading, isSuccess, isError} = useGetUserQuery(userId);
-    const user = {data};
+    const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId);
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -156,7 +155,7 @@ export const Dashboard = () => {
             <div>
                 <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
             </div>
-            <button type="button"onClick={toggleForm}>New Recipe</button>
+            <button name="toggle-form" type="button"onClick={toggleForm}>New Recipe</button>
             {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
         </main>
     )
