@@ -49,7 +49,7 @@ export const apiSlice = createApi({
           body: recipe
         })
       }),
-      getUser: builder.query<User, {userId: string}>({
+      getUser: builder.query<User, string>({
         query: userId => `/users/${userId}`
       }),
       getSingleRecipe: builder.query({

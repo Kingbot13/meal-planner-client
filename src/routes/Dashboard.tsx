@@ -16,7 +16,7 @@ export const Dashboard = () => {
     const [guestRecipeId, setGuestRecipeId] = useState('');
     const [userStatus, setUserStatus] = useState('');
 
-    const {userId} = useParams();
+    const {userId=''} = useParams();
 
     const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId);
 
