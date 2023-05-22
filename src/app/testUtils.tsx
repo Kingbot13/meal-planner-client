@@ -5,6 +5,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import type { PreloadedState } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import guestReducer from '../features/guest/guestSlice';
+import { apiSlice } from '../features/api/apiSlice';
 
 import { AppStore, rootReducer, RootState, setupStore } from '../app/store'
 
@@ -18,7 +19,8 @@ export function renderWithProviders(
     {
         preloadedState = {},
         // Automatically create a store instance if no store was passed in
-        store = setupStore(preloadedState),
+    
+    store = setupStore(preloadedState),
         ...renderOptions
       }: ExtendedRenderOptions = {}
   ) {

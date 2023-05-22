@@ -1,11 +1,9 @@
 import { configureStore, ThunkAction, Action, PreloadedState, combineReducers, getDefaultMiddleware} from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import guestReducer from '../features/guest/guestSlice';
 import { apiSlice } from '../features/api/apiSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     guest: guestReducer,
     [apiSlice.reducerPath]: apiSlice.reducer
   },
@@ -28,7 +26,7 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
 }
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
