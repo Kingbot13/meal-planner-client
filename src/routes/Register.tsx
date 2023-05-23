@@ -53,15 +53,15 @@ export const Register = () => {
                 <h1>Register</h1>
                 <form>
                     <label htmlFor="username">Email:</label>
-                    <input type='text' name="username" id="username" onChange={(e)=>handleChange(e)} value={value.username}></input>
+                    <input type='text' name="username" id="username" onChange={(e)=>handleChange(e)} value={value.username} required></input>
                     <label htmlFor="firstName">First Name:</label>
-                    <input type='text' name="firstName" id="firstName" onChange={(e)=>handleChange(e)} value={value.firstName}></input>
+                    <input type='text' name="firstName" id="firstName" onChange={(e)=>handleChange(e)} value={value.firstName} required></input>
                     <label htmlFor="lastName">Last Name:</label>
-                    <input type='text' name="lastName" id="lastName" onChange={(e)=>handleChange(e)} value={value.lastName}></input>
+                    <input type='text' name="lastName" id="lastName" onChange={(e)=>handleChange(e)} value={value.lastName} required></input>
                     <label htmlFor="password">Password:</label>
-                    <input type='password' name="password" id="password" onChange={(e)=>handleChange(e)} value={value.password}></input>
+                    <input type='password' name="password" id="password" onChange={(e)=>handleChange(e)} value={value.password} required></input>
                     <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input type='password' name="confirmPassword" id="confirmPassword" onChange={(e)=>handleChange(e)} value={value.confirmPassword}></input> 
+                    <input type='password' name="confirmPassword" id="confirmPassword" onChange={(e)=>handleChange(e)} value={value.confirmPassword} required ></input> 
                     <button type="button" onClick={handleSubmit}>Register</button>
                 </form>
                 <hr/>
