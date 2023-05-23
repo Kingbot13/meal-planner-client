@@ -16,9 +16,9 @@ export const Dashboard = () => {
     const [guestRecipeId, setGuestRecipeId] = useState('');
     const [userStatus, setUserStatus] = useState('');
 
-    const {userId=''} = useParams();
+    const {userId} = useParams();
 
-    const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId);
+    const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId ?? 'guest');
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -36,7 +36,7 @@ export const Dashboard = () => {
         if (isLoading) setUserStatus('Loading user');
         if (isSuccess) setUserStatus(user.firstName);
         if (isError) setUserStatus('Error');
-        console.log(user?.firstName);
+        console.log(user);
     },[isLoading, isSuccess, user, isError]);
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {

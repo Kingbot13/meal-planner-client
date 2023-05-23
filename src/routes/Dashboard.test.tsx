@@ -43,7 +43,7 @@ describe('Dashboard', () => {
 
         renderWithProviders(<Dashboard />);
 
-        const user = await screen.findByText(/Welcome John/i);
+        const user = await screen.findByText(/Welcome John/i, {}, {timeout: 700});
 
         expect(user).toHaveTextContent(/Welcome John/i);
     })
@@ -94,9 +94,6 @@ describe("RecipeForm in Dashboard", () => {
             await userE.keyboard('preheat oven');
 
         })
-        // await userE.type(ingredientName, 'Baked Chicken');
-        // await userE.type(ingredientMeasurement, '1');
-        // await userE.type(recipeStep, 'Preheat oven');
 
         expect(ingredientName).toHaveValue('chicken');
         expect(ingredientMeasurement).toHaveValue('1');
