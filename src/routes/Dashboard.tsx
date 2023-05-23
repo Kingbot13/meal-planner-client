@@ -80,12 +80,12 @@ export const Dashboard = () => {
         const ingredientTypes = document.querySelectorAll('option:selected');
         for (let i = 0; i < ingredients.length; i++) {
             ingredientTypes.forEach(e => {
-                ingredients[i].measurement += e.id === ``
+                if (e.id === `ingredientMeasurementType${i}`)  ingredients[i].measurement += e.nodeValue;
             })
         }
 
         if (isGuest) {
-            const recipe = {name: recipeName, ingredients: ingredientValues, steps: recipeValues};
+            const recipe = {name: recipeName, ingredients, steps: recipeValues};
             if (isUpdate) {
                 dispatch(guestUpdateRecipe(recipe));
             } else {
@@ -93,7 +93,7 @@ export const Dashboard = () => {
             }
         } else {
             try{
-                const recipe = {name: recipeName, ingredients: [...ingredientValues], steps: [...recipeValues], userId};
+                const recipe = {name: recipeName, ingredients, steps: [...recipeValues], userId};
                 if (isUpdate) {
                     await updateRecipe(recipe).unwrap();
                 } else {
