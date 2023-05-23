@@ -20,7 +20,7 @@ export const RecipeForm = (
             <h2>New Recipe</h2>
             <div>
                 <label htmlFor="name">Name:</label>
-                <input type='text' name="name" id="name" onChange={(e)=>handleNameChange(e)} />
+                <input type='text' name="name" id="name" onChange={(e)=>handleNameChange(e)} required />
             </div>
             <p>Ingredients</p>
             <div id="ingredients-div">

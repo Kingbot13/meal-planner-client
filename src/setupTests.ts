@@ -4,7 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/jest-dom'
-import { rest, setupWorker } from 'msw'
+import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
 
@@ -21,8 +21,14 @@ export const handlers = [
     return res(ctx.json(user),
         ctx.status(200))
   }),
-  rest.get("https://mealplanner.onrender.com/api/user/123/recipes", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}))
+  rest.post("https://mealplanner.onrender.com/api/user/:userId/recipes", (req, res, ctx) => {
+    const recipe = {
+      name: 'Baked Chicken',
+      _id: '123',
+      steps: ['preheat oven', 'put chicken in oven', 'take chicken out of oven'],
+      ingredients: [{name: 'chicken', measurement: '1 lbs'}]
+    }
+    return res(ctx.status(200), ctx.json({recipe}))
   })
 ]
 

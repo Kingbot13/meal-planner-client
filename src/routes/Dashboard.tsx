@@ -76,6 +76,14 @@ export const Dashboard = () => {
     }
 
     const submit = async () => {
+        const ingredients = [...ingredientValues];
+        const ingredientTypes = document.querySelectorAll('option:selected');
+        for (let i = 0; i < ingredients.length; i++) {
+            ingredientTypes.forEach(e => {
+                ingredients[i].measurement += e.id === ``
+            })
+        }
+
         if (isGuest) {
             const recipe = {name: recipeName, ingredients: ingredientValues, steps: recipeValues};
             if (isUpdate) {
