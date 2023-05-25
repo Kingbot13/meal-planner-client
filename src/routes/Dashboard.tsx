@@ -16,9 +16,9 @@ export const Dashboard = () => {
     const [guestRecipeId, setGuestRecipeId] = useState('');
     const [userStatus, setUserStatus] = useState('');
 
-    const {userId=''} = useParams();
+    const {userId} = useParams();
 
-    const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId);
+    const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId ?? 'guest');
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -36,7 +36,7 @@ export const Dashboard = () => {
         if (isLoading) setUserStatus('Loading user');
         if (isSuccess) setUserStatus(user.firstName);
         if (isError) setUserStatus('Error');
-        console.log(user?.firstName);
+        console.log(user);
     },[isLoading, isSuccess, user, isError]);
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,12 +80,13 @@ export const Dashboard = () => {
         const ingredientTypes = document.querySelectorAll('option:selected');
         for (let i = 0; i < ingredients.length; i++) {
             ingredientTypes.forEach(e => {
-                ingredients[i].measurement += e.id === `ingredientMeaurementType${i}` ? e.value : '';
+                if (e.id === `ingredientMeasurementType${i}`)  ingredients[i].measurement += e.nodeValue;
             })
+            
         }
 
         if (isGuest) {
-            const recipe = {name: recipeName, ingredients: ingredientValues, steps: recipeValues};
+            const recipe = {name: recipeName, ingredients, steps: recipeValues};
             if (isUpdate) {
                 dispatch(guestUpdateRecipe(recipe));
             } else {
@@ -93,7 +94,7 @@ export const Dashboard = () => {
             }
         } else {
             try{
-                const recipe = {name: recipeName, ingredients: [...ingredientValues], steps: [...recipeValues], userId};
+                const recipe = {name: recipeName, ingredients, steps: [...recipeValues], userId};
                 if (isUpdate) {
                     await updateRecipe(recipe).unwrap();
                 } else {

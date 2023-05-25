@@ -53,9 +53,9 @@ export const LogIn = () => {
                 <h1>Register or Log In</h1>
                 <form>
                     <label htmlFor="username">Email:</label>
-                    <input type='text' name="username" id="username" onChange={(e) => handleChange(e)} value={userData.username} />
+                    <input type='text' name="username" id="username" onChange={(e) => handleChange(e)} value={userData.username} required/>
                     <label htmlFor="password">Password:</label>
-                    <input type='password' name="password" id="password" onChange={(e) => handleChange(e)} value={userData.password} />
+                    <input type='password' name="password" id="password" onChange={(e) => handleChange(e)} value={userData.password} required/>
                     <button type="button" onClick={handleSubmit}>Submit</button>
                 </form>
                 <hr/>

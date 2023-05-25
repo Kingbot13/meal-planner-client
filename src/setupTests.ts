@@ -10,14 +10,17 @@ import { setupServer } from 'msw/node'
 
 
 export const handlers = [
-  rest.get("https://mealplanner.onrender.com/api/users/:userId", (_req, res, ctx) => {
+  rest.get("https://mealplanner.onrender.com/api/users/:userId", (req, res, ctx) => {
+
+    const {userId} = req.params;
     const user = {
       firstName: 'John',
       lastName: 'Doe',
       recipes: [],
-      _id: '123',
+      _id: userId,
       shuffledRecipes: []
-  }
+    }
+    console.log(userId);
     return res(ctx.json(user),
         ctx.status(200))
   }),
@@ -28,7 +31,7 @@ export const handlers = [
       steps: ['preheat oven', 'put chicken in oven', 'take chicken out of oven'],
       ingredients: [{name: 'chicken', measurement: '1 lbs'}]
     }
-    return res(ctx.status(200), ctx.json({recipe}))
+    return res(ctx.status(200), ctx.json(recipe))
   })
 ]
 
