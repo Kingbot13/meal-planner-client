@@ -4,7 +4,7 @@ import {Nav} from './components/Nav';
 
 function App() {
   return (
-    <div className="App relative flex h-[100vh] text-primary-text">
+    <div className="App relative flex h-[100vh] overflow-hidden text-primary-text">
       <Nav />
       <Outlet />
     </div>
