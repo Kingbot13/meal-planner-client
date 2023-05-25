@@ -80,7 +80,7 @@ export const Dashboard = () => {
         const ingredientTypes = document.querySelectorAll('option:selected');
         for (let i = 0; i < ingredients.length; i++) {
             ingredientTypes.forEach(e => {
-                ingredients[i].measurement += e.id === ``
+                ingredients[i].measurement += e.id === `ingredientMeaurementType${i}` ? e.value : '';
             })
         }
 
