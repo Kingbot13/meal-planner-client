@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
+import { Logo } from "../components/Logo";
 
 export const Home = () => {
 
     return (
         <main className="w-full h-full relative overflow-hidden">
-            <div className="flex pl-28 pt-10">
-                <h1 className="text-5xl font-bold self-start">Meal Planner</h1> 
-            </div>
+            <Logo />
             <div className="flex w-full flex-col items-center h-full justify-between py-16">
                 <h2 className="text-2xl flex w-[46rem] items-center justify-center justify-self-start mt-0">
                 Never think about what's for dinner again! <br/>

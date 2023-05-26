@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { redirect } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
+import { Logo } from "../components/Logo";
 import { useRegisterMutation } from "../features/api/apiSlice";
 import { guestSwitch } from "../features/guest/guestSlice";
+import { Input } from "../components/Input";
+import { SubmitButton } from "../components/SubmitButton";
+import { Label } from "../components/Label";
 
 export const Register = () => {
 
@@ -40,34 +44,34 @@ export const Register = () => {
         }
     }
     const guestSignIn = () => {
-        // const storage = localStorage;
-        // storage.getItem('guest') ? redirect('/') 
-        // :
-        // storage.setItem('guest', 'true');
         dispatch(guestSwitch());
         redirect('/user/guest');
     }
     return (
-        <div>
-            <div>
-                <h1>Register</h1>
-                <form>
-                    <label htmlFor="username">Email:</label>
-                    <input type='text' name="username" id="username" onChange={(e)=>handleChange(e)} value={value.username} required></input>
-                    <label htmlFor="firstName">First Name:</label>
-                    <input type='text' name="firstName" id="firstName" onChange={(e)=>handleChange(e)} value={value.firstName} required></input>
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input type='text' name="lastName" id="lastName" onChange={(e)=>handleChange(e)} value={value.lastName} required></input>
-                    <label htmlFor="password">Password:</label>
-                    <input type='password' name="password" id="password" onChange={(e)=>handleChange(e)} value={value.password} required></input>
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input type='password' name="confirmPassword" id="confirmPassword" onChange={(e)=>handleChange(e)} value={value.confirmPassword} required ></input> 
-                    <button type="button" onClick={handleSubmit}>Register</button>
-                </form>
-                <hr/>
-                <h2>Sign In as Guest</h2>
-                <button type="button" onClick={guestSignIn}>Guest Sign In</button>
+        <main className="flex flex-col h-full">
+            <Logo />
+            <div className="flex flex-col items-center justify-between m-auto w-1/2 h-[48rem] border-primary-text shadow-md rounded-lg border py-10">
+                <h2 className="text-2xl text-primary-text font-bold">Register</h2>
+                <div className="flex justify-between w-full px-10">
+                    <form className="flex flex-col items-start space-y-4">
+                        <Label htmlFor="username" text="Email:" />
+                        <Input type='text' name="username" id="username" onChange={(e)=>handleChange(e)} value={value.username} required={true} />
+                        <Label htmlFor="firstName" text="First Name:" />
+                        <Input type='text' name="firstName" id="firstName" onChange={(e)=>handleChange(e)} value={value.firstName} required={true} />
+                        <Label htmlFor="lastName" text="Last Name:" />
+                        <Input type='text' name="lastName" id="lastName" onChange={(e)=>handleChange(e)} value={value.lastName} required={true} />
+                        <Label htmlFor="password" text="Password:" />
+                        <Input type='password' name="password" id="password" onChange={(e)=>handleChange(e)} value={value.password} required={true} />
+                        <Label htmlFor="confirmPassword" text="Confirm Password:" />
+                        <Input type='password' name="confirmPassword" id="confirmPassword" onChange={(e)=>handleChange(e)} value={value.confirmPassword} required={true}  /> 
+                        <div className="flex items-center justify-center w-full">
+                            <SubmitButton text="Submit" onClick={handleSubmit} />
+                        </div>
+                    </form>
+                <hr className="h-full border-l-2 border-primary-text"/>
+                <button className="text-primary-text" type="button" onClick={guestSignIn}>Guest Sign In</button>
+                </div>
             </div>
-        </div>
+        </main>
     )
 }
