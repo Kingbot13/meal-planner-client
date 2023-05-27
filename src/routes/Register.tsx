@@ -50,7 +50,7 @@ export const Register = () => {
     return (
         <main className="flex flex-col h-full">
             <Logo />
-            <div className="flex flex-col items-center justify-between m-auto w-1/2 h-[48rem] border-primary-text shadow-md rounded-lg border py-10">
+            <div className="flex flex-col items-center justify-between my-8 mx-auto w-1/2 h-[48rem] border-primary-text shadow-md rounded-lg border py-10">
                 <h2 className="text-2xl text-primary-text font-bold">Register</h2>
                 <div className="flex justify-between w-full px-10">
                     <form className="flex flex-col items-start space-y-4">
