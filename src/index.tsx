@@ -12,10 +12,10 @@ import { Register } from './routes/Register';
 import { Home } from './routes/Home';
 import { Dashboard } from './routes/Dashboard';
 
-if (process.env.NODE_ENV === 'development') {
-  const {worker} = require('./mocks/browser.ts');
-  worker.start();
-}
+// if (process.env.NODE_ENV === 'development') {
+//   const {worker} = require('./mocks/browser.ts');
+//   worker.start();
+// }
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
