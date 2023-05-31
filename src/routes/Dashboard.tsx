@@ -5,6 +5,7 @@ import { useAddRecipeMutation, useDeleteRecipeMutation, useGetSingleRecipeQuery,
 import { guestAddRecipe, guestDeleteRecipe, guestUpdateRecipe } from "../features/guest/guestSlice";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useParams } from "react-router-dom";
+import { Logo } from "../components/Logo";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -160,7 +161,8 @@ export const Dashboard = () => {
 
     return (
         <main>
-            <h1>Welcome {isGuest ? 'Guest' : userStatus} </h1>
+            <Logo />
+            <h2>Welcome {isGuest ? 'Guest' : userStatus} </h2>
             <div>
                 <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
             </div>

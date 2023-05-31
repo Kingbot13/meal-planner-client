@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../app/hooks";
 import { Logo } from "../components/Logo";
 import { useRegisterMutation } from "../features/api/apiSlice";
@@ -18,6 +18,8 @@ export const Register = () => {
         confirmPassword: "",
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const valueCopy = {...value};
         valueCopy[e.target.name as 'username' | 'firstName' | 'lastName' | 'password' | 'confirmPassword'] = e.target.value;
@@ -28,24 +30,32 @@ export const Register = () => {
 
     const dispatch = useAppDispatch();
 
+    const passwordMatches: boolean = value.password === value.confirmPassword;
+
     const handleSubmit = async () => {
         try {
-            await register(value).unwrap();
-            setValues({
-                username: "",
-                firstName: "",
-                lastName: "",
-                password: "",
-                confirmPassword: "",
-            });
-            redirect('/login');
+            if (passwordMatches) {
+                await register(value).unwrap();
+                setValues({
+                    username: "",
+                    firstName: "",
+                    lastName: "",
+                    password: "",
+                    confirmPassword: "",
+                });
+                navigate('/login');
+            } else {
+                // TODO: replace alert with less annoying form validation
+                alert('password does not match');
+            }
         } catch(err) {
             console.error('error registering new user', err);
         }
     }
     const guestSignIn = () => {
         dispatch(guestSwitch());
-        redirect('/user/guest');
+        navigate('/user/guest');
+        console.log('guest button clicked');
     }
     return (
         <main className="flex flex-col h-full">
