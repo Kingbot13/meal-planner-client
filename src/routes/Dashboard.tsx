@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useParams } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { FolderTab } from "../components/FolderTab";
+import { DetailedRecipeCard } from "../components/DetailedRecipeCard";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -33,6 +34,8 @@ export const Dashboard = () => {
     })
 
     const {data: recipe} = useGetSingleRecipeQuery(recipeInfo);
+
+    const todayRecipe = user?.shuffledRecipes[0];
 
     useEffect(() => {
         if (isLoading) setUserStatus('Loading user');
@@ -165,8 +168,12 @@ export const Dashboard = () => {
             <Logo />
             <div className="flex flex-col w-full h-full items-center">
                 <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
-                <FolderTab color='bg-warmth'>
-
+                {/* color prop is for background color, tabTop for absolutely positioned 'tab' is for positioning from top of parent */}
+                <FolderTab color='warmth' tabTop="16" title="Today">
+                    <div>
+                        {todayRecipe && 
+                        <DetailedRecipeCard name={todayRecipe.name} description={todayRecipe.description} ingredients={todayRecipe.ingredients} steps={todayRecipe.steps} _id={todayRecipe._id} />}
+                    </div>
                 </FolderTab>
                 <div>
                     <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
