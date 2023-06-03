@@ -6,6 +6,7 @@ import { guestAddRecipe, guestDeleteRecipe, guestUpdateRecipe } from "../feature
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useParams } from "react-router-dom";
 import { Logo } from "../components/Logo";
+import { FolderTab } from "../components/FolderTab";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -164,6 +165,9 @@ export const Dashboard = () => {
             <Logo />
             <div className="flex flex-col w-full h-full items-center">
                 <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
+                <FolderTab color='bg-warmth'>
+
+                </FolderTab>
                 <div>
                     <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
                 </div>

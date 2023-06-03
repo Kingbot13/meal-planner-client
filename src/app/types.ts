@@ -15,6 +15,7 @@ export interface User {
 
 export interface GuestRecipe {
     name: string,
+    description?: string,
     ingredients: Ingredient[],
     steps: {value: string}[],
     
