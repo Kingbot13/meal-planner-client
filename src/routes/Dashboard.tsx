@@ -160,14 +160,16 @@ export const Dashboard = () => {
     }
 
     return (
-        <main>
+        <main className="relative flex flex-col w-full h-full">
             <Logo />
-            <h2>Welcome {isGuest ? 'Guest' : userStatus} </h2>
-            <div>
-                <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
+            <div className="flex flex-col w-full h-full items-center">
+                <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
+                <div>
+                    <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
+                </div>
+                <button name="toggle-form" type="button"onClick={toggleForm}>New Recipe</button>
+                {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
             </div>
-            <button name="toggle-form" type="button"onClick={toggleForm}>New Recipe</button>
-            {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
         </main>
     )
 }
