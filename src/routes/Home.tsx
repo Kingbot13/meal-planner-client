@@ -4,7 +4,7 @@ import { Logo } from "../components/Logo";
 export const Home = () => {
 
     return (
-        <main className="w-full h-full relative overflow-hidden">
+        <main className="w-full h-[100vh] relative overflow-hidden">
             <Logo />
             <div className="flex w-full flex-col items-center h-full justify-between py-16 ">
                 <h2 className="text-2xl flex w-[46rem] items-center justify-center justify-self-start mt-0">

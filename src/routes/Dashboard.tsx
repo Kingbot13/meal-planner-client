@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { FolderTab } from "../components/FolderTab";
 import { DetailedRecipeCard } from "../components/DetailedRecipeCard";
+import { RecipeCard } from "../components/RecipeCard";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -34,6 +35,8 @@ export const Dashboard = () => {
     })
 
     const {data: recipe} = useGetSingleRecipeQuery(recipeInfo);
+
+    const shuffledRecipes = user ? [...user.shuffledRecipes] : [];
 
     const todayRecipe = user?.shuffledRecipes[0];
 
@@ -158,21 +161,36 @@ export const Dashboard = () => {
         }
     }
 
+    const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     const toggleForm = () => {
         setShowForm(!showForm ? true : false);
     }
 
     return (
-        <main className="relative flex flex-col w-full h-full">
+        <main className="relative flex flex-col w-full min-h-full">
             <Logo />
             <div className="flex flex-col w-full h-full items-center">
                 <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
                 {/* color prop is for background color, tabTop for absolutely positioned 'tab' is for positioning from top of parent */}
-                <FolderTab color='warmth' tabTop="16" title="Today">
+                <FolderTab color='warmth' tabTop={16} title="Today">
                     <div>
                         {todayRecipe && 
                         <DetailedRecipeCard name={todayRecipe.name} description={todayRecipe.description} ingredients={todayRecipe.ingredients} steps={todayRecipe.steps} _id={todayRecipe._id} />}
+                    </div>
+                </FolderTab>
+                <FolderTab color='sea-turtle' title="Week" tabTop={20}>
+                    <div>
+                        {weekDays.map((day, index) => {
+                            return (
+                                <div>
+                                    <p>{day}</p>
+                                    <RecipeCard recipeName={user?.shuffledRecipes[index].name ?? ''} 
+                                        id={shuffledRecipes[index]._id}    
+                                    />
+                                </div>
+                            )
+                        })}
                     </div>
                 </FolderTab>
                 <div>
