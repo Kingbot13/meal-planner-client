@@ -5,7 +5,7 @@ import { RecipeCardProps } from "../app/types";
 export const RecipeCard = ({recipeName, id, recipeUpdate, deleteRecipe}: RecipeCardProps) => {
     const isGuest = useAppSelector(state => state.guest.isGuest);
     return (
-        <li>
+        <li className="h-72">
             <div>
                 <div>{recipeName}</div>
                 <button type="button" data-id={isGuest ? recipeName : id} onClick={(e)=>recipeUpdate(e)}>Update</button>

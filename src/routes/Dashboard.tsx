@@ -32,7 +32,9 @@ export const Dashboard = () => {
     const isGuest = useAppSelector(state => state.guest.isGuest);
     const guestRecipe = useAppSelector((state) => {
         return state.guest.recipes.find(item => item.name === guestRecipeId);
-    })
+    });
+
+    const allGuestRecipes = useAppSelector(state => state.guest.recipes);
 
     const {data: recipe} = useGetSingleRecipeQuery(recipeInfo);
 
@@ -173,29 +175,42 @@ export const Dashboard = () => {
             <div className="flex flex-col w-full h-full items-center">
                 <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
                 {/* color prop is for background color, tabTop for absolutely positioned 'tab' is for positioning from top of parent */}
-                <FolderTab color='warmth' tabTop={16} title="Today">
+                <FolderTab color='bg-warmth' zIndex="z-0" tabTop={'top-16'} title="Today">
                     <div>
                         {todayRecipe && 
                         <DetailedRecipeCard name={todayRecipe.name} description={todayRecipe.description} ingredients={todayRecipe.ingredients} steps={todayRecipe.steps} _id={todayRecipe._id} />}
                     </div>
                 </FolderTab>
-                <FolderTab color='sea-turtle' title="Week" tabTop={20}>
-                    <div>
+                <FolderTab color='bg-sea-turtle' zIndex="-z-10" title="Week" tabTop={'top-44'} >
+                    {/* grid container */}
+                    <div className="grid grid-cols-auto p-4 h-full w-full gap-3">
                         {weekDays.map((day, index) => {
                             return (
-                                <div>
-                                    <p>{day}</p>
-                                    <RecipeCard recipeName={user?.shuffledRecipes[index].name ?? ''} 
-                                        id={shuffledRecipes[index]._id}    
-                                    />
+                                <div className="flex flex-col items-center justify-center border border-primary-text rounded-md shadow-md" >
+                                    <p className="font-bold">{day}</p>
+                                    {
+                                        shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?
+                                        <RecipeCard recipeName={shuffledRecipes[index].name ?? allGuestRecipes[index].name} 
+                                            id={shuffledRecipes[index]._id ?? allGuestRecipes[index].name}
+                                            recipeUpdate={toggleRecipeUpdate}
+                                            deleteRecipe={removeRecipe}    
+                                        />
+                                        :
+                                        <p>No Recipes created yet</p>
+                                    }
                                 </div>
                             )
                         })}
                     </div>
                 </FolderTab>
-                <div>
+                <FolderTab color='bg-noon-sky' zIndex="z-10" title="month" tabTop="top-72" >
+                        <div>
+
+                        </div>
+                </FolderTab>
+                {/* <div>
                     <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
-                </div>
+                </div> */}
                 <button name="toggle-form" type="button"onClick={toggleForm}>New Recipe</button>
                 {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
             </div>

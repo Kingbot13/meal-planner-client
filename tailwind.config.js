@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        auto: "repeat(auto-fill, minmax(250px, 1fr))",
+      },
+    },
     colors: {
       "bubble-gum": "#FF70DF",
       "sea-turtle": "#54D177",
