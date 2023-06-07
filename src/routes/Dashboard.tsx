@@ -9,6 +9,7 @@ import { Logo } from "../components/Logo";
 import { FolderTab } from "../components/FolderTab";
 import { DetailedRecipeCard } from "../components/DetailedRecipeCard";
 import { RecipeCard } from "../components/RecipeCard";
+import { getDaysInMonth, getMonth } from "date-fns";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -41,6 +42,9 @@ export const Dashboard = () => {
     const shuffledRecipes = user ? [...user.shuffledRecipes] : [];
 
     const todayRecipe = user?.shuffledRecipes[0];
+
+    const daysInMonth = getDaysInMonth(new Date());
+    const month = getMonth(new Date());
 
     useEffect(() => {
         if (isLoading) setUserStatus('Loading user');
@@ -204,13 +208,8 @@ export const Dashboard = () => {
                     </div>
                 </FolderTab>
                 <FolderTab color='bg-noon-sky' zIndex="z-10" title="month" tabTop="top-72" >
-                        <div>
-
-                        </div>
+                        
                 </FolderTab>
-                {/* <div>
-                    <RecipeList recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
-                </div> */}
                 <button name="toggle-form" type="button"onClick={toggleForm}>New Recipe</button>
                 {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
             </div>
