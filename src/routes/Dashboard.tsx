@@ -10,7 +10,7 @@ import { FolderTab } from "../components/FolderTab";
 import { DetailedRecipeCard } from "../components/DetailedRecipeCard";
 import { RecipeCard } from "../components/RecipeCard";
 import { getDaysInMonth, getMonth } from "date-fns";
-import { CalenderMonth } from "../components/CalendarMonth";
+import { CalendarMonth } from "../components/CalendarMonth";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -211,7 +211,7 @@ export const Dashboard = () => {
                 <FolderTab color='bg-noon-sky' zIndex="z-10" title="month" tabTop="top-72" >
                         {
                             shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?
-                            <CalenderMonth recipes={shuffledRecipes.length ? shuffledRecipes : allGuestRecipes} recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
+                            <CalendarMonth recipes={shuffledRecipes.length ? shuffledRecipes : allGuestRecipes} recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
                             :
                             <p>No recipes created yet</p>
                         }
