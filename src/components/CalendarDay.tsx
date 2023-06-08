@@ -1,14 +1,16 @@
+import { ReactNode } from "react"
 
 interface propTypes {
-    dayNumber: number
+    dayNumber: number,
+    children: ReactNode
 }
 
-export const CalenderDay = ({dayNumber}: propTypes) => {
+export const CalendarDay = ({dayNumber, children}: propTypes) => {
 
     return (
         <div>
             <p>{dayNumber}</p>
-            
+            {children}
         </div>
     )
 }
