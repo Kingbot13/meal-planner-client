@@ -37,3 +37,11 @@
     transform: translateY(0px);
   }
 }
+
+@keyframes folder-swap {
+}
+
+.folder-active {
+  z-index: 40;
+  transition: z-index 2s;
+}

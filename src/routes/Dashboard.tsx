@@ -174,6 +174,8 @@ export const Dashboard = () => {
         setShowForm(!showForm ? true : false);
     }
 
+    
+
     return (
         <main className="relative flex flex-col w-full min-h-full">
             <Logo />
