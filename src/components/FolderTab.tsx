@@ -11,9 +11,11 @@ interface propTypes {
 
 export const FolderTab = (props: propTypes) => {
 
-    const activeFolder = (e: React.MouseEvent<HTMLParagraphElement> & Element) => {
-        const parent = e.target.parentNode;
-        parent.classList.add('folder-active');
+    const activeFolder = (e: React.MouseEvent<HTMLParagraphElement>) => {
+        
+        const parent = (e.target as Element).parentNode;
+        if (parent)
+        (parent as Element).classList.add('folder-active');
     }
     return (
         <div className={`flex folder ${props.zIndex} lg:w-[80rem] lg:h-[40rem] w-11/12 h-5/6 absolute self-start rounded-r-md ${props.color} items-center justify-center`} >
