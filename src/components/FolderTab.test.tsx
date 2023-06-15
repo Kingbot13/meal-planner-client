@@ -1,4 +1,4 @@
-import {screen, cleanup, act, render} from '@testing-library/react';
+import {screen, cleanup, act} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { Dashboard } from '../routes/Dashboard';

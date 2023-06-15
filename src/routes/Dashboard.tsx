@@ -11,6 +11,7 @@ import { DetailedRecipeCard } from "../components/DetailedRecipeCard";
 import { RecipeCard } from "../components/RecipeCard";
 import { getDaysInMonth, getMonth } from "date-fns";
 import { CalendarMonth } from "../components/CalendarMonth";
+import '../App.css';
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -181,13 +182,13 @@ export const Dashboard = () => {
             <div className="flex flex-col w-full h-full items-center">
                 <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
                 {/* color prop is for background color, tabTop for absolutely positioned 'tab' is for positioning from top of parent */}
-                <FolderTab color='bg-warmth' zIndex="z-0" tabTop={'top-16'} title="Today">
+                <FolderTab color='bg-warmth'  tabTop={'top-16'} title="Today">
                     <div>
                         {todayRecipe && 
                         <DetailedRecipeCard name={todayRecipe.name} description={todayRecipe.description} ingredients={todayRecipe.ingredients} steps={todayRecipe.steps} _id={todayRecipe._id} />}
                     </div>
                 </FolderTab>
-                <FolderTab color='bg-sea-turtle' zIndex="-z-10" title="Week" tabTop={'top-44'} >
+                <FolderTab color='bg-sea-turtle'  title="Week" tabTop={'top-44'} >
                     {/* grid container */}
                     <div className="grid grid-cols-auto p-4 h-full w-full gap-3">
                         {weekDays.map((day, index) => {
@@ -209,7 +210,7 @@ export const Dashboard = () => {
                         })}
                     </div>
                 </FolderTab>
-                <FolderTab color='bg-noon-sky' zIndex="z-10" title="month" tabTop="top-72" >
+                <FolderTab color='bg-noon-sky'  title="month" tabTop="top-72" >
                         {
                             shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?
                             <CalendarMonth recipes={shuffledRecipes.length ? shuffledRecipes : allGuestRecipes} recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
