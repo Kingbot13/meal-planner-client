@@ -12,6 +12,7 @@ import { RecipeCard } from "../components/RecipeCard";
 import { getDaysInMonth, getMonth } from "date-fns";
 import { CalendarMonth } from "../components/CalendarMonth";
 import '../App.css';
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
@@ -25,7 +26,7 @@ export const Dashboard = () => {
 
     const {userId} = useParams();
 
-    const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId ?? 'guest');
+    const {data: user, isLoading, isSuccess, isError} = useGetUserQuery(userId && userId !== 'guest' ? userId : skipToken);
 
     const [addRecipe] = useAddRecipeMutation();
     const [updateRecipe] = useUpdateRecipeMutation();
@@ -39,7 +40,7 @@ export const Dashboard = () => {
 
     const allGuestRecipes = useAppSelector(state => state.guest.recipes);
 
-    const {data: recipe} = useGetSingleRecipeQuery(recipeInfo);
+    const {data: recipe} = useGetSingleRecipeQuery(recipeInfo.userId && recipeInfo.userId !== 'guest' ? recipeInfo : skipToken);
 
     const shuffledRecipes = user ? [...user.shuffledRecipes] : [];
 
@@ -181,43 +182,45 @@ export const Dashboard = () => {
             <Logo />
             <div className="flex flex-col w-full h-full items-center">
                 <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
-                {/* color prop is for background color, tabTop for absolutely positioned 'tab' is for positioning from top of parent */}
-                <FolderTab color='bg-warmth'  tabTop={'top-16'} title="Today">
-                    <div>
-                        {todayRecipe && 
-                        <DetailedRecipeCard name={todayRecipe.name} description={todayRecipe.description} ingredients={todayRecipe.ingredients} steps={todayRecipe.steps} _id={todayRecipe._id} />}
-                    </div>
-                </FolderTab>
-                <FolderTab color='bg-sea-turtle'  title="Week" tabTop={'top-44'} >
-                    {/* grid container */}
-                    <div className="grid grid-cols-auto p-4 h-full w-full gap-3">
-                        {weekDays.map((day, index) => {
-                            return (
-                                <div key={index} className="flex flex-col items-center justify-center border border-primary-text rounded-md shadow-md" >
-                                    <p className="font-bold">{day}</p>
-                                    {
-                                        shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?
-                                        <RecipeCard recipeName={shuffledRecipes[index].name ?? allGuestRecipes[index].name} 
-                                            id={shuffledRecipes[index]._id ?? allGuestRecipes[index].name}
-                                            recipeUpdate={toggleRecipeUpdate}
-                                            deleteRecipe={removeRecipe}    
-                                        />
-                                        :
-                                        <p>No recipes created yet</p>
-                                    }
-                                </div>
-                            )
-                        })}
-                    </div>
-                </FolderTab>
-                <FolderTab color='bg-noon-sky'  title="month" tabTop="top-72" >
-                        {
-                            shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?
-                            <CalendarMonth recipes={shuffledRecipes.length ? shuffledRecipes : allGuestRecipes} recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
-                            :
-                            <p>No recipes created yet</p>
-                        }
-                </FolderTab>
+                <div className="flex flex-col w-full h-full pt-16">
+                    {/* color prop is for background color, tabTop for absolutely positioned 'tab' is for positioning from top of parent */}
+                    <FolderTab color='bg-warmth'  tabTop={'top-16'} title="Today">
+                        <div>
+                            {todayRecipe && 
+                            <DetailedRecipeCard name={todayRecipe.name} description={todayRecipe.description} ingredients={todayRecipe.ingredients} steps={todayRecipe.steps} _id={todayRecipe._id} />}
+                        </div>
+                    </FolderTab>
+                    <FolderTab color='bg-sea-turtle'  title="Week" tabTop={'top-44'} >
+                        {/* grid container */}
+                        <div className="grid grid-cols-auto p-4 h-full w-full gap-3">
+                            {weekDays.map((day, index) => {
+                                return (
+                                    <div key={index} className="flex flex-col items-center justify-center border border-primary-text rounded-md shadow-md" >
+                                        <p className="font-bold">{day}</p>
+                                        {
+                                            shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?
+                                            <RecipeCard recipeName={shuffledRecipes[index].name ?? allGuestRecipes[index].name} 
+                                                id={shuffledRecipes[index]._id ?? allGuestRecipes[index].name}
+                                                recipeUpdate={toggleRecipeUpdate}
+                                                deleteRecipe={removeRecipe}    
+                                            />
+                                            :
+                                            <p>No recipes created yet</p>
+                                        }
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </FolderTab>
+                    <FolderTab color='bg-noon-sky'  title="month" tabTop="top-72" >
+                            {
+                                shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?
+                                <CalendarMonth recipes={shuffledRecipes.length ? shuffledRecipes : allGuestRecipes} recipeUpdate={toggleRecipeUpdate} deleteRecipe={removeRecipe} />
+                                :
+                                <p>No recipes created yet</p>
+                            }
+                    </FolderTab>
+                </div>
                 <button name="toggle-form" type="button"onClick={toggleForm}>New Recipe</button>
                 {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues} handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
             </div>
