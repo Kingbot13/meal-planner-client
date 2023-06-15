@@ -20,7 +20,7 @@ export const CalendarMonth = ({recipes, recipeUpdate, deleteRecipe}: propTypes) 
     const recipeCopy = recipes.slice(0, daysInMonth);
 
     return (
-        <div>
+        <div data-testid='cm'>
             <p>{month}</p>
             <div>
                 {recipeCopy.map((item, index) => {

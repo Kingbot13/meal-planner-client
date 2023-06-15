@@ -51,7 +51,6 @@ export const Dashboard = () => {
         if (isLoading) setUserStatus('Loading user');
         if (isSuccess) setUserStatus(user.firstName);
         if (isError) setUserStatus('Error');
-        console.log(user);
     },[isLoading, isSuccess, user, isError]);
 
     const handleIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -193,7 +192,7 @@ export const Dashboard = () => {
                     <div className="grid grid-cols-auto p-4 h-full w-full gap-3">
                         {weekDays.map((day, index) => {
                             return (
-                                <div className="flex flex-col items-center justify-center border border-primary-text rounded-md shadow-md" >
+                                <div key={index} className="flex flex-col items-center justify-center border border-primary-text rounded-md shadow-md" >
                                     <p className="font-bold">{day}</p>
                                     {
                                         shuffledRecipes.length > 0 || allGuestRecipes.length > 0 ?

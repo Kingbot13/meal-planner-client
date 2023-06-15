@@ -20,7 +20,6 @@ export const handlers = [
       _id: userId,
       shuffledRecipes: []
     }
-    console.log(userId);
     return res(ctx.json(user),
         ctx.status(200))
   }),

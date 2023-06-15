@@ -1,4 +1,4 @@
-import {render, screen, waitFor, cleanup, act} from '@testing-library/react';
+import {screen, cleanup, act} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { Dashboard } from './Dashboard';
@@ -18,32 +18,32 @@ describe('Dashboard guest mode', () => {
 
     it('is in guest mode', () => {
 
-        expect(screen.getByRole('heading',{level: 1})).toHaveTextContent('Welcome Guest');
+        expect(screen.getByRole('heading',{level: 2})).toHaveTextContent('Welcome Guest');
     });
 });
 
 describe('Dashboard', () => {
   afterEach(() => cleanup());
 
-    const apiData = {
-        firstName: 'John',
-        lastName: 'Doe',
-        recipes: [],
-        _id: '123',
-        shuffledRecipes: []
-    };
+    // const apiData = {
+    //     firstName: 'John',
+    //     lastName: 'Doe',
+    //     recipes: [],
+    //     _id: '123',
+    //     shuffledRecipes: []
+    // };
 
     it("displays 'Loading user' while loading data", () => {
         renderWithProviders(<Dashboard />);
 
-        expect(screen.getByRole('heading', {level: 1})).toHaveTextContent(/Loading user/i);
+        expect(screen.getByRole('heading', {level: 2})).toHaveTextContent(/Loading user/i);
     })
 
     it("displays user's name", async () => {
 
         renderWithProviders(<Dashboard />);
 
-        const user = await screen.findByText(/Welcome John/i, {}, {timeout: 700});
+        const user = await screen.findByText(/Welcome John/i);
 
         expect(user).toHaveTextContent(/Welcome John/i);
     })
