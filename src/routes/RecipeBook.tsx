@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { guestDeleteRecipe, guestAddRecipe, guestUpdateRecipe } from "../features/guest/guestSlice";
 import { useState } from "react";
 import { RecipeForm } from "../components/RecipeForm";
+import {PlusSmallIcon} from '@heroicons/react/24/outline';
 
 
 export const RecipeBook = () => {
@@ -165,6 +166,9 @@ export const RecipeBook = () => {
             <div className="h-full w-full flex flex-col items-center">
                 <div className="flex flex-col w-4/5 items-center h-4/5 pt-28">
                     {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues}  handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
+                    <button type="button" className="h-16 w-16 self-start shadow-inner rounded-full shadow-md " onClick={toggleForm}>
+                        <PlusSmallIcon />
+                    </button>
                     <h2 className="text-2xl font-bold text-primary-text mb-5">Welcome, {userId === 'guest' ? 'guest' : user?.firstName}</h2>
                     <RecipeList deleteRecipe={removeRecipe} recipeUpdate={toggleRecipeUpdate} />
                 </div>
