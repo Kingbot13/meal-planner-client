@@ -11,6 +11,7 @@ import './index.css';
 import { Register } from './routes/Register';
 import { Home } from './routes/Home';
 import { Dashboard } from './routes/Dashboard';
+import { RecipeBook } from './routes/RecipeBook';
 
 // if (process.env.NODE_ENV === 'development') {
 //   const {worker} = require('./mocks/browser.ts');
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         
       },
+      {
+        path: "/user/:userId/recipes",
+        element: <RecipeBook />
+      }
     ]
   },
   {
