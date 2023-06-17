@@ -21,6 +21,7 @@ export const RecipeBook = () => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [guestRecipeId, setGuestRecipeId] = useState('');
     const [userStatus, setUserStatus] = useState('');
+    
 
 
     const {userId} = useParams();
@@ -165,7 +166,7 @@ export const RecipeBook = () => {
             <Logo />
             <div className="h-full w-full flex flex-col items-center">
                 <div className="flex flex-col w-4/5 items-center h-4/5 pt-28">
-                    {showForm && <RecipeForm ingredientValues={ingredientValues} recipeValues={recipeValues}  handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
+                    {showForm && <RecipeForm nameValue={recipeName} ingredientValues={ingredientValues} recipeValues={recipeValues}  handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
                     <button type="button" className="h-16 w-16 self-start shadow-inner rounded-full shadow-md " onClick={toggleForm}>
                         <PlusSmallIcon />
                     </button>

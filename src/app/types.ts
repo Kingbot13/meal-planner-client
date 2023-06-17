@@ -34,6 +34,7 @@ type RecipeIngredientChange = (i: number, e: React.ChangeEvent<HTMLInputElement>
 export type RecipeFormProps = {
     ingredientValues: Ingredient[],
     recipeValues: {value: string}[],
+    nameValue: string,
     handleIngredientChange: RecipeIngredientChange,
     handleRecipeChange: RecipeIngredientChange,
     handleNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void,

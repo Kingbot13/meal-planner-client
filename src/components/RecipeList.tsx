@@ -24,7 +24,7 @@ export const RecipeList = ({recipeUpdate, deleteRecipe}: {recipeUpdate: ButtonEv
             return <RecipeCard recipeName={recipe.name} id={recipe._id} recipeUpdate={recipeUpdate} deleteRecipe={deleteRecipe} />
     });
     return(
-        <ul className="min-w-full z-50 relative rounded-lg border border-primary-text min-h-full">
+        <ul className="min-w-full relative rounded-lg border border-primary-text min-h-full">
             {content.length ? content : <li>No recipes...</li>}
         </ul>
     )
