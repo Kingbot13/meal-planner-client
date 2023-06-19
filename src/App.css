@@ -45,3 +45,11 @@
   z-index: 40;
   transition: z-index 2s;
 }
+
+.hamburger:focus {
+  transform: rotate(-90deg);
+}
+
+.hamburger {
+  transition: transform linear 100ms;
+}
