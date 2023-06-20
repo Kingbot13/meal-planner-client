@@ -46,10 +46,27 @@
   transition: z-index 2s;
 }
 
-.hamburger:focus {
-  transform: rotate(-90deg);
+@keyframes burger-rotate {
+  from {
+    rotate: 0;
+  }
+  to {
+    rotate: -90deg;
+  }
 }
 
+/* .hamburger:focus {
+  transform: rotate(-90deg);
+} */
+
 .hamburger {
-  transition: transform linear 100ms;
+  animation: burger-rotate 100ms linear alternate;
+}
+
+.hamburger-active {
+  animation: burger-rotate 100ms linear alternate;
+}
+
+main {
+  pointer-events: none;
 }
