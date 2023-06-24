@@ -164,10 +164,10 @@ export const RecipeBook = () => {
     return (
         <main className="relative flex flex-col w-full min-h-full">
             <Logo />
-            <div className="h-full w-full flex flex-col items-center">
+            <div className="h-full w-full flex flex-col items-center pointer-events-auto">
                 <div className="flex flex-col w-4/5 items-center h-4/5 pt-28">
                     {showForm && <RecipeForm nameValue={recipeName} ingredientValues={ingredientValues} recipeValues={recipeValues}  handleIngredientChange={handleIngredientChange} handleRecipeChange={handleRecipeChange} handleNameChange={handleNameChange} addIngredientFields={addIngredientFields} addRecipeFields={addRecipeFields} removeIngredientFields={removeIngredientFields} removeRecipeFields={removeRecipeFields} submit={submit} />}
-                    <button type="button" className="h-16 w-16 self-start shadow-inner rounded-full shadow-md " onClick={toggleForm}>
+                    <button type="button" className="h-16 w-16 self-start rounded-full shadow-md " onClick={toggleForm}>
                         <PlusSmallIcon />
                     </button>
                     <h2 className="text-2xl font-bold text-primary-text mb-5">Welcome, {userId === 'guest' ? 'guest' : user?.firstName}</h2>

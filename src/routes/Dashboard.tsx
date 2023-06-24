@@ -180,7 +180,7 @@ export const Dashboard = () => {
     return (
         <main className="relative flex flex-col w-full min-h-full">
             <Logo />
-            <div className="flex flex-col w-full h-full items-center">
+            <div className="flex flex-col w-full h-full items-center pointer-events-auto">
                 <h2 className="text-2xl font-bold text-primary-text">Welcome {isGuest ? 'Guest' : userStatus} </h2>
                 <div className="flex flex-col w-full h-full pt-16">
                     {/* color prop is for background color, tabTop for absolutely positioned 'tab' is for positioning from top of parent */}

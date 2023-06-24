@@ -50,7 +50,7 @@ export const LogIn = () => {
     return (
         <main className="flex flex-col min-h-full">
             <Logo />
-            <div className="flex flex-col items-center py-2 h-96 w-96 rounded-lg mt-8 mx-auto shadow-md border-primary-text border">
+            <div className="flex flex-col items-center py-2 h-96 w-96 rounded-lg mt-8 mx-auto shadow-md border-primary-text border pointer-events-auto">
                 <h2 className="font-bold text-2xl text-primary-text">Log In</h2>
                 <form className="flex flex-col h-full items-start justify-evenly">
                     <Label htmlFor="username" text="Email:" />

@@ -54,6 +54,7 @@
 
 }
 
+/* to allow nav bar to work */
 main {
   pointer-events: none;
 }

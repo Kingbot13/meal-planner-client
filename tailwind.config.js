@@ -6,6 +6,9 @@ module.exports = {
       gridTemplateColumns: {
         auto: "repeat(auto-fill, minmax(250px, 1fr))",
       },
+      translate: {
+        '80': '20rem'
+      }
     },
     colors: {
       "bubble-gum": "#FF70DF",

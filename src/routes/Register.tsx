@@ -58,7 +58,7 @@ export const Register = () => {
         console.log('guest button clicked');
     }
     return (
-        <main className="flex flex-col h-full">
+        <main className="flex flex-col h-full pointer-events-auto">
             <Logo />
             <div className="flex flex-col items-center justify-between my-8 mx-auto w-1/2 h-[48rem] border-primary-text shadow-md rounded-lg border py-10">
                 <h2 className="text-2xl text-primary-text font-bold">Register</h2>
